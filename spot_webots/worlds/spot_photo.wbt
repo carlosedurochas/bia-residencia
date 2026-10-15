@@ -1,0 +1,45 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/boston_dynamics/spot/protos/Spot.proto"
+
+WorldInfo {
+  info [
+    "Spot parado em pé para uma foto."
+    "O robô PHOTOGRAPHER (invisível, só uma câmera) salva a imagem e fecha o Webots."
+  ]
+  title "Spot photo"
+}
+# Câmera em (1.6, -1.6, 0.9) olhando para (0, 0, 0.3), mesmo enquadramento das fotos dos outros simuladores
+Viewpoint {
+  orientation -0.1291 0.0535 0.9902 2.3631
+  position 1.6 -1.6 0.9
+}
+TexturedBackground {
+  texture "noon_cloudy_countryside"
+}
+TexturedBackgroundLight {
+  texture "noon_cloudy_countryside"
+}
+Floor {
+  size 20 20
+}
+Spot {
+  controller "spot_stand"
+}
+DEF PHOTOGRAPHER Robot {
+  translation 1.6 -1.6 0.9
+  rotation -0.1291 0.0535 0.9902 2.3631
+  children [
+    Camera {
+      width 1280
+      height 720
+      fieldOfView 1.2695  # horizontal; equivale a 45° na vertical em 16:9
+    }
+  ]
+  name "photographer"
+  controller "spot_photo"
+  supervisor TRUE
+}
