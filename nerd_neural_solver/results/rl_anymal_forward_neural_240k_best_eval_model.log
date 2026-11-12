@@ -1,0 +1,266 @@
+﻿C:\nerd-env\python.exe : W1110 12:49:30.081000 28400 site-packages\torch\utils\flop_counter.py:29] triton not found; 
+flop counting will not work for triton kernels
+No linha:4 caractere:3
++   C:\nerd-env\python.exe $run eval/eval_rl/run_rl.py --rl-cfg ./cfg/A ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (W1110 12:49:30.... triton kernels:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Warp CUDA error: Failed to get driver entry point 'cuDeviceGetUuid' (CUDA error 1)
+Warp CUDA error: Function cuDeviceGetUuid_f: a suitable driver entry point was not found
+Warp CUDA error 36: API call is not supported in the installed CUDA driver (in function cuda_init, 
+C:\g\183435000\warp\native\warp.cu:284)
+Warp DeprecationWarning: The `warp.sim` module is deprecated and will be removed in v1.10. Please transition to using the forthcoming Newton library instead.
+Warp 1.8.0 initialized:
+   CUDA Toolkit 12.8, Driver 13.3
+   Devices:
+     "cpu"      : "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+     "cuda:0"   : "NVIDIA GeForce RTX 5070 Ti" (16 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     C:\Users\dectra\AppData\Local\NVIDIA\warp\Cache\1.8.0
+[96m [NeuralEnvironment] Creating abstract contact environment: AnymalJointPositionControl. [0m
+Module warp.sim.inertia 4136106 load on device 'cuda:0' took 4.34 ms  (cached)
+
+Creating 512 environments:   0%|          | 0/512 [00:00<?, ?it/s]
+Creating 512 environments:   1%|          | 3/512 [00:00<00:17, 28.60it/s]
+Creating 512 environments:   1%|          | 6/512 [00:00<00:22, 22.56it/s]
+Creating 512 environments:   2%|▏         | 9/512 [00:00<00:20, 24.81it/s]
+Creating 512 environments:   2%|▏         | 12/512 [00:00<00:19, 25.69it/s]
+Creating 512 environments:   3%|▎         | 15/512 [00:00<00:18, 26.84it/s]
+Creating 512 environments:   4%|▎         | 18/512 [00:00<00:21, 22.71it/s]
+Creating 512 environments:   4%|▍         | 21/512 [00:00<00:21, 23.05it/s]
+Creating 512 environments:   5%|▍         | 24/512 [00:00<00:19, 24.59it/s]
+Creating 512 environments:   5%|▌         | 27/512 [00:01<00:19, 25.15it/s]
+Creating 512 environments:   6%|▌         | 30/512 [00:01<00:18, 26.19it/s]
+Creating 512 environments:   6%|▋         | 33/512 [00:01<00:17, 26.99it/s]
+Creating 512 environments:   7%|▋         | 36/512 [00:01<00:17, 27.55it/s]
+Creating 512 environments:   8%|▊         | 39/512 [00:01<00:18, 26.00it/s]
+Creating 512 environments:   8%|▊         | 42/512 [00:01<00:18, 26.10it/s]
+Creating 512 environments:   9%|▉         | 45/512 [00:01<00:18, 25.57it/s]
+Creating 512 environments:   9%|▉         | 48/512 [00:01<00:19, 24.03it/s]
+Creating 512 environments:  10%|▉         | 51/512 [00:02<00:18, 25.37it/s]
+Creating 512 environments:  11%|█         | 54/512 [00:02<00:17, 26.25it/s]
+Creating 512 environments:  11%|█         | 57/512 [00:02<00:17, 26.75it/s]
+Creating 512 environments:  12%|█▏        | 60/512 [00:02<00:17, 25.35it/s]
+Creating 512 environments:  12%|█▏        | 63/512 [00:02<00:18, 24.59it/s]
+Creating 512 environments:  13%|█▎        | 66/512 [00:02<00:18, 24.17it/s]
+Creating 512 environments:  13%|█▎        | 69/512 [00:02<00:17, 25.20it/s]
+Creating 512 environments:  14%|█▍        | 72/512 [00:02<00:17, 25.23it/s]
+Creating 512 environments:  15%|█▍        | 75/512 [00:02<00:16, 26.13it/s]
+Creating 512 environments:  15%|█▌        | 78/512 [00:03<00:17, 25.18it/s]
+Creating 512 environments:  16%|█▌        | 81/512 [00:03<00:17, 24.46it/s]
+Creating 512 environments:  16%|█▋        | 84/512 [00:03<00:17, 25.00it/s]
+Creating 512 environments:  17%|█▋        | 87/512 [00:03<00:16, 26.20it/s]
+Creating 512 environments:  18%|█▊        | 90/512 [00:03<00:15, 26.63it/s]
+Creating 512 environments:  18%|█▊        | 93/512 [00:03<00:15, 27.46it/s]
+Creating 512 environments:  19%|█▉        | 96/512 [00:03<00:15, 27.03it/s]
+Creating 512 environments:  19%|█▉        | 99/512 [00:03<00:17, 23.01it/s]
+Creating 512 environments:  20%|█▉        | 102/512 [00:04<00:16, 24.74it/s]
+Creating 512 environments:  21%|██        | 105/512 [00:04<00:15, 25.63it/s]
+Creating 512 environments:  21%|██        | 108/512 [00:04<00:15, 26.63it/s]
+Creating 512 environments:  22%|██▏       | 111/512 [00:04<00:14, 27.27it/s]
+Creating 512 environments:  22%|██▏       | 114/512 [00:04<00:14, 27.01it/s]
+Creating 512 environments:  23%|██▎       | 117/512 [00:04<00:14, 27.56it/s]
+Creating 512 environments:  23%|██▎       | 120/512 [00:04<00:14, 26.25it/s]
+Creating 512 environments:  24%|██▍       | 123/512 [00:04<00:14, 26.05it/s]
+Creating 512 environments:  25%|██▍       | 126/512 [00:04<00:14, 25.99it/s]
+Creating 512 environments:  25%|██▌       | 129/512 [00:05<00:14, 27.00it/s]
+Creating 512 environments:  26%|██▌       | 132/512 [00:05<00:13, 27.24it/s]
+Creating 512 environments:  26%|██▋       | 135/512 [00:05<00:13, 27.31it/s]
+Creating 512 environments:  27%|██▋       | 138/512 [00:05<00:13, 27.84it/s]
+Creating 512 environments:  28%|██▊       | 141/512 [00:05<00:13, 27.88it/s]
+Creating 512 environments:  28%|██▊       | 144/512 [00:05<00:13, 27.44it/s]
+Creating 512 environments:  29%|██▊       | 147/512 [00:05<00:13, 27.95it/s]
+Creating 512 environments:  29%|██▉       | 150/512 [00:05<00:12, 28.12it/s]
+Creating 512 environments:  30%|██▉       | 153/512 [00:05<00:12, 28.30it/s]
+Creating 512 environments:  30%|███       | 156/512 [00:05<00:12, 27.50it/s]
+Creating 512 environments:  31%|███       | 159/512 [00:06<00:12, 27.55it/s]
+Creating 512 environments:  32%|███▏      | 162/512 [00:06<00:12, 27.85it/s]
+Creating 512 environments:  32%|███▏      | 165/512 [00:06<00:12, 28.04it/s]
+Creating 512 environments:  33%|███▎      | 169/512 [00:06<00:11, 28.66it/s]
+Creating 512 environments:  34%|███▎      | 172/512 [00:06<00:11, 28.73it/s]
+Creating 512 environments:  34%|███▍      | 175/512 [00:06<00:11, 28.68it/s]
+Creating 512 environments:  35%|███▍      | 178/512 [00:06<00:13, 25.56it/s]
+Creating 512 environments:  35%|███▌      | 181/512 [00:06<00:12, 25.58it/s]
+Creating 512 environments:  36%|███▌      | 184/512 [00:07<00:12, 26.35it/s]
+Creating 512 environments:  37%|███▋      | 187/512 [00:07<00:12, 27.01it/s]
+Creating 512 environments:  37%|███▋      | 190/512 [00:07<00:11, 27.53it/s]
+Creating 512 environments:  38%|███▊      | 193/512 [00:07<00:11, 27.61it/s]
+Creating 512 environments:  38%|███▊      | 196/512 [00:07<00:11, 27.85it/s]
+Creating 512 environments:  39%|███▉      | 199/512 [00:07<00:11, 27.91it/s]
+Creating 512 environments:  39%|███▉      | 202/512 [00:07<00:11, 28.06it/s]
+Creating 512 environments:  40%|████      | 205/512 [00:07<00:11, 27.11it/s]
+Creating 512 environments:  41%|████      | 208/512 [00:07<00:10, 27.77it/s]
+Creating 512 environments:  41%|████      | 211/512 [00:07<00:10, 28.04it/s]
+Creating 512 environments:  42%|████▏     | 214/512 [00:08<00:10, 28.52it/s]
+Creating 512 environments:  42%|████▏     | 217/512 [00:08<00:10, 28.12it/s]
+Creating 512 environments:  43%|████▎     | 220/512 [00:08<00:10, 28.62it/s]
+Creating 512 environments:  44%|████▎     | 223/512 [00:08<00:10, 28.32it/s]
+Creating 512 environments:  44%|████▍     | 226/512 [00:08<00:09, 28.77it/s]
+Creating 512 environments:  45%|████▍     | 229/512 [00:08<00:09, 28.65it/s]
+Creating 512 environments:  45%|████▌     | 232/512 [00:08<00:09, 28.09it/s]
+Creating 512 environments:  46%|████▌     | 235/512 [00:08<00:09, 28.36it/s]
+Creating 512 environments:  46%|████▋     | 238/512 [00:08<00:09, 28.20it/s]
+Creating 512 environments:  47%|████▋     | 241/512 [00:09<00:09, 27.99it/s]
+Creating 512 environments:  48%|████▊     | 244/512 [00:09<00:09, 28.28it/s]
+Creating 512 environments:  48%|████▊     | 247/512 [00:09<00:09, 28.36it/s]
+Creating 512 environments:  49%|████▉     | 250/512 [00:09<00:09, 28.32it/s]
+Creating 512 environments:  49%|████▉     | 253/512 [00:09<00:08, 28.78it/s]
+Creating 512 environments:  50%|█████     | 256/512 [00:09<00:08, 28.48it/s]
+Creating 512 environments:  51%|█████     | 259/512 [00:09<00:08, 28.76it/s]
+Creating 512 environments:  51%|█████     | 262/512 [00:09<00:08, 28.87it/s]
+Creating 512 environments:  52%|█████▏    | 265/512 [00:09<00:08, 28.44it/s]
+Creating 512 environments:  52%|█████▏    | 268/512 [00:09<00:08, 27.79it/s]
+Creating 512 environments:  53%|█████▎    | 271/512 [00:10<00:08, 28.04it/s]
+Creating 512 environments:  54%|█████▎    | 274/512 [00:10<00:08, 26.54it/s]
+Creating 512 environments:  54%|█████▍    | 277/512 [00:10<00:08, 26.49it/s]
+Creating 512 environments:  55%|█████▍    | 280/512 [00:10<00:08, 26.32it/s]
+Creating 512 environments:  55%|█████▌    | 283/512 [00:10<00:08, 26.55it/s]
+Creating 512 environments:  56%|█████▌    | 286/512 [00:10<00:08, 27.31it/s]
+Creating 512 environments:  56%|█████▋    | 289/512 [00:10<00:08, 26.94it/s]
+Creating 512 environments:  57%|█████▋    | 292/512 [00:10<00:08, 27.49it/s]
+Creating 512 environments:  58%|█████▊    | 295/512 [00:10<00:07, 27.77it/s]
+Creating 512 environments:  58%|█████▊    | 298/512 [00:11<00:07, 27.95it/s]
+Creating 512 environments:  59%|█████▉    | 301/512 [00:11<00:07, 26.52it/s]
+Creating 512 environments:  59%|█████▉    | 304/512 [00:11<00:08, 24.60it/s]
+Creating 512 environments:  60%|█████▉    | 307/512 [00:11<00:08, 24.61it/s]
+Creating 512 environments:  61%|██████    | 310/512 [00:11<00:07, 25.62it/s]
+Creating 512 environments:  61%|██████    | 313/512 [00:11<00:07, 25.18it/s]
+Creating 512 environments:  62%|██████▏   | 316/512 [00:11<00:07, 25.91it/s]
+Creating 512 environments:  62%|██████▏   | 319/512 [00:11<00:07, 26.67it/s]
+Creating 512 environments:  63%|██████▎   | 322/512 [00:12<00:06, 27.25it/s]
+Creating 512 environments:  63%|██████▎   | 325/512 [00:12<00:06, 26.86it/s]
+Creating 512 environments:  64%|██████▍   | 328/512 [00:12<00:06, 27.41it/s]
+Creating 512 environments:  65%|██████▍   | 331/512 [00:12<00:06, 27.69it/s]
+Creating 512 environments:  65%|██████▌   | 334/512 [00:12<00:07, 24.98it/s]
+Creating 512 environments:  66%|██████▌   | 338/512 [00:12<00:06, 27.27it/s]
+Creating 512 environments:  67%|██████▋   | 341/512 [00:12<00:06, 27.07it/s]
+Creating 512 environments:  67%|██████▋   | 344/512 [00:12<00:06, 25.69it/s]
+Creating 512 environments:  68%|██████▊   | 347/512 [00:12<00:06, 26.52it/s]
+Creating 512 environments:  68%|██████▊   | 350/512 [00:13<00:06, 26.43it/s]
+Creating 512 environments:  69%|██████▉   | 353/512 [00:13<00:05, 27.05it/s]
+Creating 512 environments:  70%|██████▉   | 356/512 [00:13<00:05, 26.90it/s]
+Creating 512 environments:  70%|███████   | 359/512 [00:13<00:06, 24.71it/s]
+Creating 512 environments:  71%|███████   | 362/512 [00:13<00:05, 25.74it/s]
+Creating 512 environments:  71%|███████▏  | 365/512 [00:13<00:05, 26.84it/s]
+Creating 512 environments:  72%|███████▏  | 368/512 [00:13<00:05, 27.10it/s]
+Creating 512 environments:  72%|███████▏  | 371/512 [00:13<00:05, 27.37it/s]
+Creating 512 environments:  73%|███████▎  | 374/512 [00:13<00:04, 27.86it/s]
+Creating 512 environments:  74%|███████▎  | 377/512 [00:14<00:04, 28.04it/s]
+Creating 512 environments:  74%|███████▍  | 380/512 [00:14<00:05, 25.44it/s]
+Creating 512 environments:  75%|███████▍  | 383/512 [00:14<00:05, 25.23it/s]
+Creating 512 environments:  75%|███████▌  | 386/512 [00:14<00:04, 25.63it/s]
+Creating 512 environments:  76%|███████▌  | 389/512 [00:14<00:05, 24.00it/s]
+Creating 512 environments:  77%|███████▋  | 392/512 [00:14<00:05, 23.27it/s]
+Creating 512 environments:  77%|███████▋  | 395/512 [00:14<00:04, 23.65it/s]
+Creating 512 environments:  78%|███████▊  | 398/512 [00:14<00:04, 25.09it/s]
+Creating 512 environments:  78%|███████▊  | 401/512 [00:15<00:04, 26.36it/s]
+Creating 512 environments:  79%|███████▉  | 404/512 [00:15<00:05, 20.71it/s]
+Creating 512 environments:  79%|███████▉  | 407/512 [00:15<00:04, 22.35it/s]
+Creating 512 environments:  80%|████████  | 410/512 [00:15<00:04, 23.92it/s]
+Creating 512 environments:  81%|████████  | 413/512 [00:15<00:03, 25.16it/s]
+Creating 512 environments:  81%|████████▏ | 416/512 [00:15<00:04, 22.45it/s]
+Creating 512 environments:  82%|████████▏ | 419/512 [00:15<00:03, 23.97it/s]
+Creating 512 environments:  82%|████████▏ | 422/512 [00:15<00:03, 24.96it/s]
+Creating 512 environments:  83%|████████▎ | 425/512 [00:16<00:03, 25.85it/s]
+Creating 512 environments:  84%|████████▎ | 428/512 [00:16<00:03, 26.79it/s]
+Creating 512 environments:  84%|████████▍ | 431/512 [00:16<00:02, 27.28it/s]
+Creating 512 environments:  85%|████████▍ | 434/512 [00:16<00:02, 27.65it/s]
+Creating 512 environments:  85%|████████▌ | 437/512 [00:16<00:02, 26.41it/s]
+Creating 512 environments:  86%|████████▌ | 440/512 [00:16<00:02, 26.68it/s]
+Creating 512 environments:  87%|████████▋ | 443/512 [00:16<00:02, 27.39it/s]
+Creating 512 environments:  87%|████████▋ | 446/512 [00:16<00:02, 24.37it/s]
+Creating 512 environments:  88%|████████▊ | 449/512 [00:17<00:02, 25.40it/s]
+Creating 512 environments:  88%|████████▊ | 452/512 [00:17<00:02, 26.37it/s]
+Creating 512 environments:  89%|████████▉ | 455/512 [00:17<00:02, 26.77it/s]
+Creating 512 environments:  89%|████████▉ | 458/512 [00:17<00:02, 25.11it/s]
+Creating 512 environments:  90%|█████████ | 461/512 [00:17<00:01, 25.51it/s]
+Creating 512 environments:  91%|█████████ | 464/512 [00:17<00:01, 25.77it/s]
+Creating 512 environments:  91%|█████████ | 467/512 [00:17<00:01, 26.22it/s]
+Creating 512 environments:  92%|█████████▏| 470/512 [00:17<00:01, 25.89it/s]
+Creating 512 environments:  92%|█████████▏| 473/512 [00:17<00:01, 26.44it/s]
+Creating 512 environments:  93%|█████████▎| 476/512 [00:18<00:01, 27.31it/s]
+Creating 512 environments:  94%|█████████▎| 479/512 [00:18<00:01, 26.31it/s]
+Creating 512 environments:  94%|█████████▍| 482/512 [00:18<00:01, 26.04it/s]
+Creating 512 environments:  95%|█████████▍| 485/512 [00:18<00:01, 25.83it/s]
+Creating 512 environments:  95%|█████████▌| 488/512 [00:18<00:01, 19.86it/s]
+Creating 512 environments:  96%|█████████▌| 491/512 [00:18<00:01, 20.89it/s]
+Creating 512 environments:  96%|█████████▋| 494/512 [00:18<00:00, 21.84it/s]
+Creating 512 environments:  97%|█████████▋| 497/512 [00:18<00:00, 23.57it/s]
+Creating 512 environments:  98%|█████████▊| 500/512 [00:19<00:00, 23.55it/s]
+Creating 512 environments:  98%|█████████▊| 503/512 [00:19<00:00, 24.82it/s]
+Creating 512 environments:  99%|█████████▉| 506/512 [00:19<00:00, 26.07it/s]
+Creating 512 environments:  99%|█████████▉| 509/512 [00:19<00:00, 26.06it/s]
+Creating 512 environments: 100%|██████████| 512/512 [00:19<00:00, 26.97it/s]
+Creating 512 environments: 100%|██████████| 512/512 [00:19<00:00, 26.23it/s]
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and 
+request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast 
+majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+C:\nerd-env\lib\site-packages\gym\spaces\box.py:127: UserWarning: [33mWARN: Box bound precision lowered by casting to 
+float32[0m
+  logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+Module warp.sim.collide 3b78b77 load on device 'cuda:0' took 25.52 ms  (cached)
+Module warp.sim.integrator_featherstone 18b3327 load on device 'cuda:0' took 24.44 ms  (cached)
+Module envs.abstract_contact_environment 8e8d790 load on device 'cuda:0' took 2.69 ms  (cached)
+Module integrators.integrator_neural ee402cd load on device 'cuda:0' took 3.62 ms  (cached)
+[96m [NeuralEnvironment] Created a Neural Integrator. [0m
+self.seed = 0
+Started to play
+[BasePlayer] Creating regular env:  warp
+{'observation_space': Box(-100.0, 100.0, (37,), float32), 'action_space': Box(-1.0, 1.0, (12,), float32), 'agents': 1, 'value_size': 1}
+build mlp: 37
+RunningMeanStd:  (1,)
+RunningMeanStd:  (37,)
+=> loading checkpoint '../../pretrained_models/RL_policies/Anymal/forward_walk/0/nn/AnymalPPO.pth'
+Module warp.sim.articulation 770a52a load on device 'cuda:0' took 16.20 ms  (cached)
+Module envs.warp_sim_envs.env_anymal 0d5a7d8 load on device 'cuda:0' took 8.05 ms  (cached)
+Module utils.warp_utils 294c46a load on device 'cuda:0' took 3.92 ms  (cached)
+Module envs.warp_sim_envs.env_anymal_joint_position_control a278f29 load on device 'cuda:0' took 39.97 ms  (cached)
+Module envs.rlgames_env_wrapper 947f136 load on device 'cuda:0' took 35.16 ms  (cached)
+Module envs.warp_sim_envs.wrapper_utils 37d6d77 load on device 'cuda:0' took 55.66 ms  (cached)
+reward: 90.14 steps: 81.0
+reward: 213.58 steps: 220.0
+reward: 1333.86 steps: 1000.0
+680571.5932388306
+av reward: 1329.241393044591 av steps: 996.681640625
+visited states range:
+State 0: [-0.0007497144979424775, 13.469414710998535]
+State 1: [0.4928167164325714, 0.6974772214889526]
+State 2: [-0.30078989267349243, 0.48873430490493774]
+State 3: [-0.8871466517448425, -0.3296481966972351]
+State 4: [-0.06336602568626404, 0.07915857434272766]
+State 5: [-0.13401523232460022, 0.09165242314338684]
+State 6: [0.45709189772605896, 0.9339311718940735]
+State 7: [-0.19320407509803772, 0.7941927313804626]
+State 8: [-0.28298109769821167, 0.8324715495109558]
+State 9: [-1.1859099864959717, 0.3441909849643707]
+State 10: [-0.7091479301452637, 0.5316411256790161]
+State 11: [-0.2574394643306732, 0.8642919063568115]
+State 12: [-1.4837629795074463, 0.19669952988624573]
+State 13: [-0.19399717450141907, 0.8044937252998352]
+State 14: [-0.5886601805686951, 0.3120127022266388]
+State 15: [-0.13361044228076935, 1.6067719459533691]
+State 16: [-0.7600170373916626, 0.25035127997398376]
+State 17: [-0.8746469616889954, 0.2643994987010956]
+State 18: [-0.43204018473625183, 1.6328517198562622]
+State 19: [-5.638967990875244, 5.059992790222168]
+State 20: [-0.6520861387252808, 0.9473124742507935]
+State 21: [-2.333073854446411, 2.0587775707244873]
+State 22: [-1.2105615139007568, 1.8827040195465088]
+State 23: [-18.15325164794922, 10.736152648925781]
+State 24: [-3.2239227294921875, 3.9159843921661377]
+State 25: [-7.88450288772583, 7.959521293640137]
+State 26: [-3.680774688720703, 2.950296640396118]
+State 27: [-9.041318893432617, 8.014141082763672]
+State 28: [-8.155064582824707, 7.007826328277588]
+State 29: [-4.0044450759887695, 3.4111852645874023]
+State 30: [-9.840018272399902, 8.490594863891602]
+State 31: [-6.834397792816162, 6.079588890075684]
+State 32: [-1.7184723615646362, 3.4398913383483887]
+State 33: [-8.319400787353516, 5.056923866271973]
+State 34: [-7.8980488777160645, 9.429655075073242]
+State 35: [-4.098419666290283, 3.9894859790802]
+State 36: [-12.544432640075684, 7.3313798904418945]

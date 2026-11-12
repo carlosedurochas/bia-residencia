@@ -1,0 +1,277 @@
+﻿Warp DeprecationWarning: The `warp.sim` module is deprecated and will be removed in v1.10. Please transition to using the forthcoming Newton library instead.
+Warp 1.8.0 initialized:
+   CUDA Toolkit 12.8, Driver 13.3
+   Devices:
+     "cpu"      : "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+     "cuda:0"   : "NVIDIA GeForce RTX 5070 Ti" (16 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     C:\Users\dectra\AppData\Local\NVIDIA\warp\Cache\1.8.0
+[96m [NeuralEnvironment] Creating abstract contact environment: Cartpole. [0m
+
+Module warp.sim.integrator_featherstone 18b3327 load on device 'cuda:0' took 33.76 ms  (cached)
+Module envs.abstract_contact_environment 8e8d790 load on device 'cuda:0' took 2.72 ms  (cached)
+Module integrators.integrator_neural ee402cd load on device 'cuda:0' took 4.61 ms  (cached)
+[91m [NeuralEnvironment] Created a DUMMY Neural Integrator. [0m
+number of parameters: 2.69M
+Model = 
+ ModelMixedInput(
+  (encoders): ModuleDict(
+    (low_dim): MLPBase(
+      (body): Sequential()
+    )
+  )
+  (transformer_model): GPT(
+    (transformer): ModuleDict(
+      (wte): Linear(in_features=6, out_features=192, bias=True)
+      (wpe): Embedding(32, 192)
+      (drop): Dropout(p=0.0, inplace=False)
+      (h): ModuleList(
+        (0-5): 6 x Block(
+          (ln_1): LayerNorm()
+          (attn): CausalSelfAttention(
+            (c_attn): Linear(in_features=192, out_features=576, bias=False)
+            (c_proj): Linear(in_features=192, out_features=192, bias=False)
+            (attn_dropout): Dropout(p=0.0, inplace=False)
+            (resid_dropout): Dropout(p=0.0, inplace=False)
+          )
+          (ln_2): LayerNorm()
+          (mlp): MLP(
+            (c_fc): Linear(in_features=192, out_features=768, bias=False)
+            (gelu): GELU(approximate='none')
+            (c_proj): Linear(in_features=768, out_features=192, bias=False)
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (ln_f): LayerNorm()
+    )
+    (lm_head): Linear(in_features=192, out_features=192, bias=False)
+  )
+  (model): MLPDeterministic(
+    (feature_net): MLPBase(
+      (body): Sequential(
+        (0): Linear(in_features=192, out_features=64, bias=True)
+        (1): ReLU()
+      )
+    )
+    (output_net): Linear(in_features=64, out_features=4, bias=True)
+  )
+)
+# Model Parameters =  2713668
+Computing dataset statistics...
+Finished computing dataset statistics...
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+Module warp.sim.articulation 770a52a load on device 'cuda:0' took 8.91 ms  (cached)
+Module envs.warp_sim_envs.env_cartpole 01fd57b load on device 'cuda:0' took 2.01 ms  (cached)
+Module utils.warp_utils 294c46a load on device 'cuda:0' took 1.83 ms  (cached)
+Module envs.warp_sim_envs.utils d93eb17 load on device 'cuda:0' took 3.86 ms  (cached)
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.56944937, Rollout MSE Error (joint_q) = 0.01723832 [0m
+[92m Save Best Eval Model at Epoch 0 with MSE error 0.5694493651390076. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 0 [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 1.00596031, itemized = {state_0: 0.00857450, state_1: 0.85593117, state_2: 0.26970703, state_3: 0.29624233, state_MSE: 0.35761368, q_error_norm: 0.28819056, qd_error_norm: 0.53426956} [0m
+[96m [Time Report] time(epoch): 6.181 sec, time(other): 0.011 sec, time(dataloader): 4.454 sec, time(compute_loss): 0.914 sec, time(backward): 0.000 sec, time(eval): 0.791 sec [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 0 with loss 1.00596031. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.05435722, Rollout MSE Error (joint_q) = 0.00143045 [0m
+[92m Save Best Eval Model at Epoch 1 with MSE error 0.054357219487428665. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 1 [0m
+[96m [Train] loss = 0.13633214, itemized = {state_0: 0.00033025, state_1: 0.13185369, state_2: 0.04531362, state_3: 0.08560586, state_MSE: 0.06577584, q_error_norm: 0.04508042, qd_error_norm: 0.21826393} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.02765567, itemized = {state_0: 0.00005731, state_1: 0.07725280, state_2: 0.01059397, state_3: 0.01647567, state_MSE: 0.02609493, q_error_norm: 0.02414837, qd_error_norm: 0.11178476} [0m
+[96m [Time Report] time(epoch): 42.177 sec, time(other): 0.154 sec, time(dataloader): 30.531 sec, time(compute_loss): 4.134 sec, time(backward): 6.614 sec, time(eval): 0.615 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(1.066759, device='cuda:0'), grad_norm_after_clip: tensor(0.908877, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 1 with loss 0.02765567. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.01150777, Rollout MSE Error (joint_q) = 0.00038212 [0m
+[92m Save Best Eval Model at Epoch 2 with MSE error 0.01150776632130146. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 2 [0m
+[96m [Train] loss = 0.01778286, itemized = {state_0: 0.00003896, state_1: 0.06105875, state_2: 0.00637426, state_3: 0.01075238, state_MSE: 0.01955610, q_error_norm: 0.01996326, qd_error_norm: 0.08478060} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01152639, itemized = {state_0: 0.00002378, state_1: 0.02901737, state_2: 0.00454972, state_3: 0.00697088, state_MSE: 0.01014044, q_error_norm: 0.01112752, qd_error_norm: 0.06355172} [0m
+[96m [Time Report] time(epoch): 30.961 sec, time(other): 0.161 sec, time(dataloader): 22.163 sec, time(compute_loss): 3.175 sec, time(backward): 4.737 sec, time(eval): 0.626 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(1.023378, device='cuda:0'), grad_norm_after_clip: tensor(0.857532, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 2 with loss 0.01152639. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00249596, Rollout MSE Error (joint_q) = 0.00025921 [0m
+[92m Save Best Eval Model at Epoch 3 with MSE error 0.0024959624279290438. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 3 [0m
+[96m [Train] loss = 0.00690697, itemized = {state_0: 0.00001643, state_1: 0.03659582, state_2: 0.00244460, state_3: 0.00420964, state_MSE: 0.01081661, q_error_norm: 0.01214189, qd_error_norm: 0.05168096} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00332156, itemized = {state_0: 0.00000867, state_1: 0.03993818, state_2: 0.00109083, state_3: 0.00199833, state_MSE: 0.01075900, q_error_norm: 0.01148921, qd_error_norm: 0.03793594} [0m
+[96m [Time Report] time(epoch): 32.394 sec, time(other): 0.150 sec, time(dataloader): 23.166 sec, time(compute_loss): 3.360 sec, time(backward): 4.909 sec, time(eval): 0.693 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.672459, device='cuda:0'), grad_norm_after_clip: tensor(0.613171, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 3 with loss 0.00332156. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00232953, Rollout MSE Error (joint_q) = 0.00040265 [0m
+[92m Save Best Eval Model at Epoch 4 with MSE error 0.0023295332212001085. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 4 [0m
+[96m [Train] loss = 0.00383509, itemized = {state_0: 0.00000912, state_1: 0.02723791, state_2: 0.00133923, state_3: 0.00230414, state_MSE: 0.00772260, q_error_norm: 0.00939069, qd_error_norm: 0.03908942} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00402665, itemized = {state_0: 0.00001653, state_1: 0.02849260, state_2: 0.00129960, state_3: 0.00240003, state_MSE: 0.00805219, q_error_norm: 0.00995586, qd_error_norm: 0.03911794} [0m
+[96m [Time Report] time(epoch): 40.712 sec, time(other): 0.162 sec, time(dataloader): 29.668 sec, time(compute_loss): 4.004 sec, time(backward): 6.108 sec, time(eval): 0.640 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.517250, device='cuda:0'), grad_norm_after_clip: tensor(0.499369, device='cuda:0')} [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00603795, Rollout MSE Error (joint_q) = 0.00014657 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 5 [0m
+[96m [Train] loss = 0.00258051, itemized = {state_0: 0.00000557, state_1: 0.02854791, state_2: 0.00088285, state_3: 0.00152132, state_MSE: 0.00773942, q_error_norm: 0.00909643, qd_error_norm: 0.03178529} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00185297, itemized = {state_0: 0.00000465, state_1: 0.02565432, state_2: 0.00070473, state_3: 0.00102974, state_MSE: 0.00684836, q_error_norm: 0.00772541, qd_error_norm: 0.03220378} [0m
+[96m [Time Report] time(epoch): 42.627 sec, time(other): 0.196 sec, time(dataloader): 31.459 sec, time(compute_loss): 4.846 sec, time(backward): 4.843 sec, time(eval): 1.123 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.438224, device='cuda:0'), grad_norm_after_clip: tensor(0.434852, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 5 with loss 0.00185297. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00412178, Rollout MSE Error (joint_q) = 0.00035582 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 6 [0m
+[96m [Train] loss = 0.00238395, itemized = {state_0: 0.00000550, state_1: 0.02162271, state_2: 0.00080567, state_3: 0.00149496, state_MSE: 0.00598221, q_error_norm: 0.00722274, qd_error_norm: 0.03100869} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00226372, itemized = {state_0: 0.00000449, state_1: 0.03057918, state_2: 0.00080085, state_3: 0.00125863, state_MSE: 0.00816079, q_error_norm: 0.00970459, qd_error_norm: 0.03014280} [0m
+[96m [Time Report] time(epoch): 59.026 sec, time(other): 0.180 sec, time(dataloader): 43.923 sec, time(compute_loss): 6.812 sec, time(backward): 7.247 sec, time(eval): 0.649 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.424974, device='cuda:0'), grad_norm_after_clip: tensor(0.422930, device='cuda:0')} [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00107216, Rollout MSE Error (joint_q) = 0.00005800 [0m
+[92m Save Best Eval Model at Epoch 7 with MSE error 0.0010721649741753936. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 7 [0m
+[96m [Train] loss = 0.00153501, itemized = {state_0: 0.00000386, state_1: 0.01692950, state_2: 0.00051957, state_3: 0.00094072, state_MSE: 0.00459841, q_error_norm: 0.00576860, qd_error_norm: 0.02472410} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00072421, itemized = {state_0: 0.00000192, state_1: 0.01356430, state_2: 0.00024501, state_3: 0.00044202, state_MSE: 0.00356331, q_error_norm: 0.00431570, qd_error_norm: 0.01835198} [0m
+[96m [Time Report] time(epoch): 44.206 sec, time(other): 0.158 sec, time(dataloader): 32.324 sec, time(compute_loss): 4.332 sec, time(backward): 6.607 sec, time(eval): 0.639 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.318564, device='cuda:0'), grad_norm_after_clip: tensor(0.317991, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 7 with loss 0.00072421. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00236844, Rollout MSE Error (joint_q) = 0.00019033 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 8 [0m
+[96m [Train] loss = 0.00118330, itemized = {state_0: 0.00000260, state_1: 0.01448491, state_2: 0.00041204, state_3: 0.00070982, state_MSE: 0.00390234, q_error_norm: 0.00507799, qd_error_norm: 0.02181221} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00177911, itemized = {state_0: 0.00000291, state_1: 0.01564435, state_2: 0.00060910, state_3: 0.00117444, state_MSE: 0.00435770, q_error_norm: 0.00547654, qd_error_norm: 0.02734322} [0m
+[96m [Time Report] time(epoch): 54.188 sec, time(other): 0.164 sec, time(dataloader): 40.001 sec, time(compute_loss): 5.215 sec, time(backward): 8.019 sec, time(eval): 0.636 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.288104, device='cuda:0'), grad_norm_after_clip: tensor(0.286760, device='cuda:0')} [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00084891, Rollout MSE Error (joint_q) = 0.00003561 [0m
+[92m Save Best Eval Model at Epoch 9 with MSE error 0.0008489149622619152. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 9 [0m
+[96m [Train] loss = 0.00068608, itemized = {state_0: 0.00000166, state_1: 0.01171331, state_2: 0.00023034, state_3: 0.00042375, state_MSE: 0.00309227, q_error_norm: 0.00398879, qd_error_norm: 0.01743133} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00068444, itemized = {state_0: 0.00000164, state_1: 0.01448862, state_2: 0.00021041, state_3: 0.00043107, state_MSE: 0.00378294, q_error_norm: 0.00460120, qd_error_norm: 0.01715623} [0m
+[96m [Time Report] time(epoch): 61.556 sec, time(other): 0.185 sec, time(dataloader): 45.592 sec, time(compute_loss): 6.395 sec, time(backward): 8.503 sec, time(eval): 0.658 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.206261, device='cuda:0'), grad_norm_after_clip: tensor(0.206261, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 9 with loss 0.00068444. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00031351, Rollout MSE Error (joint_q) = 0.00001658 [0m
+[92m Save Best Eval Model at Epoch 10 with MSE error 0.0003135144361294806. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 10 [0m
+[96m [Train] loss = 0.00074833, itemized = {state_0: 0.00000192, state_1: 0.01344664, state_2: 0.00024879, state_3: 0.00045416, state_MSE: 0.00353788, q_error_norm: 0.00445913, qd_error_norm: 0.01747302} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00036912, itemized = {state_0: 0.00000084, state_1: 0.00986655, state_2: 0.00012207, state_3: 0.00022810, state_MSE: 0.00255439, q_error_norm: 0.00315369, qd_error_norm: 0.01333990} [0m
+[96m [Time Report] time(epoch): 74.045 sec, time(other): 0.162 sec, time(dataloader): 55.059 sec, time(compute_loss): 8.135 sec, time(backward): 9.790 sec, time(eval): 0.652 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.235005, device='cuda:0'), grad_norm_after_clip: tensor(0.235005, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 10 with loss 0.00036912. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00655100, Rollout MSE Error (joint_q) = 0.00007843 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 11 [0m
+[96m [Train] loss = 0.00043048, itemized = {state_0: 0.00000106, state_1: 0.00953699, state_2: 0.00014127, state_3: 0.00026125, state_MSE: 0.00248514, q_error_norm: 0.00330448, qd_error_norm: 0.01368957} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00218228, itemized = {state_0: 0.00000428, state_1: 0.02040432, state_2: 0.00066235, state_3: 0.00153840, state_MSE: 0.00565234, q_error_norm: 0.00621087, qd_error_norm: 0.03319995} [0m
+[96m [Time Report] time(epoch): 40.147 sec, time(other): 0.178 sec, time(dataloader): 29.276 sec, time(compute_loss): 3.761 sec, time(backward): 6.193 sec, time(eval): 0.623 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.159900, device='cuda:0'), grad_norm_after_clip: tensor(0.159900, device='cuda:0')} [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00053045, Rollout MSE Error (joint_q) = 0.00001763 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 12 [0m
+[96m [Train] loss = 0.00043458, itemized = {state_0: 0.00000101, state_1: 0.00834281, state_2: 0.00014101, state_3: 0.00027777, state_MSE: 0.00219065, q_error_norm: 0.00294733, qd_error_norm: 0.01385839} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00036185, itemized = {state_0: 0.00000071, state_1: 0.01009704, state_2: 0.00012341, state_3: 0.00023153, state_MSE: 0.00261317, q_error_norm: 0.00296059, qd_error_norm: 0.01338819} [0m
+[96m [Time Report] time(epoch): 52.594 sec, time(other): 0.166 sec, time(dataloader): 38.912 sec, time(compute_loss): 5.387 sec, time(backward): 7.337 sec, time(eval): 0.582 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.165101, device='cuda:0'), grad_norm_after_clip: tensor(0.165101, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 12 with loss 0.00036185. [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00113006, Rollout MSE Error (joint_q) = 0.00003296 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 13 [0m
+[96m [Train] loss = 0.00022989, itemized = {state_0: 0.00000059, state_1: 0.00685989, state_2: 0.00007619, state_3: 0.00013953, state_MSE: 0.00176905, q_error_norm: 0.00236210, qd_error_norm: 0.01039870} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00039192, itemized = {state_0: 0.00000087, state_1: 0.01025079, state_2: 0.00012648, state_3: 0.00024120, state_MSE: 0.00265483, q_error_norm: 0.00337388, qd_error_norm: 0.01470629} [0m
+[96m [Time Report] time(epoch): 59.141 sec, time(other): 0.174 sec, time(dataloader): 43.540 sec, time(compute_loss): 6.361 sec, time(backward): 7.702 sec, time(eval): 1.160 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.100065, device='cuda:0'), grad_norm_after_clip: tensor(0.100065, device='cuda:0')} [0m
+
+
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+
+
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.00020197, Rollout MSE Error (joint_q) = 0.00000588 [0m
+[92m Save Best Eval Model at Epoch 14 with MSE error 0.0002019720704993233. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 14 [0m
+[96m [Train] loss = 0.00017949, itemized = {state_0: 0.00000049, state_1: 0.00620518, state_2: 0.00005862, state_3: 0.00010998, state_MSE: 0.00159357, q_error_norm: 0.00209271, qd_error_norm: 0.00925923} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.00014614, itemized = {state_0: 0.00000040, state_1: 0.00709186, state_2: 0.00004576, state_3: 0.00009085, state_MSE: 0.00180722, q_error_norm: 0.00213599, qd_error_norm: 0.00862710} [0m
+[96m [Time Report] time(epoch): 46.221 sec, time(other): 0.187 sec, time(dataloader): 33.959 sec, time(compute_loss): 4.293 sec, time(backward): 6.990 sec, time(eval): 0.652 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.079202, device='cuda:0'), grad_norm_after_clip: tensor(0.079202, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 14 with loss 0.00014614. [0m

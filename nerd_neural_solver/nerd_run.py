@@ -40,10 +40,16 @@ torch.serialization.add_safe_globals(
     ]
 )
 
-if len(sys.argv) < 2:
-    sys.exit(__doc__)
+# Protegido por __main__: no Windows, os processos de leitura de dados do DataLoader reimportam
+# este arquivo e não podem reexecutar o script do NeRD
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        sys.exit(__doc__)
 
-script = os.path.join(NERD_DIR, sys.argv[1])
-sys.argv = [script] + sys.argv[2:]
-os.chdir(os.path.dirname(script))  # os scripts do NeRD usam caminhos relativos à própria pasta
-runpy.run_path(script, run_name="__main__")
+    script = os.path.join(NERD_DIR, sys.argv[1])
+    sys.argv = [script] + sys.argv[2:]
+    # Como ao rodar o script diretamente: a pasta dele entra no caminho de importação
+    # (o train.py importa o arguments.py vizinho) e vira o diretório atual (caminhos relativos)
+    sys.path.insert(0, os.path.dirname(script))
+    os.chdir(os.path.dirname(script))
+    runpy.run_path(script, run_name="__main__")

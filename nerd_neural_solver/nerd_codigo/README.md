@@ -46,8 +46,13 @@ A ideia central está em dois trechos:
 | [`utils/evaluator.py`](utils/evaluator.py) | `NeuralSimEvaluator`: gera trajetórias de referência com o solver analítico, roda o NeRD dos mesmos estados iniciais e calcula o erro (`calculate_error`) |
 | [`eval/eval_passive/eval_passive_motion.py`](eval/eval_passive/eval_passive_motion.py) | Script do teste de movimento passivo (métricas e vídeos do Cartpole e do pêndulo) |
 | [`eval/eval_rl/run_rl.py`](eval/eval_rl/run_rl.py) | Script que roda uma política de RL em qualquer um dos solvers (teste e vídeo do ANYmal) |
-| **Treino (não usado aqui, para entender como os modelos foram feitos)** | |
-| [`generate/generate_dataset_contact_free.py`](generate/generate_dataset_contact_free.py) | Gera o conjunto de dados do Cartpole: 1 milhão de transições com o solver analítico |
-| [`generate/simulation_sampler.py`](generate/simulation_sampler.py) | Sorteia estados iniciais e ações para gerar as trajetórias |
+| **Treino** (explicado passo a passo em [`../guia_treino_nerd.md`](../guia_treino_nerd.md)) | |
+| [`generate/generate_dataset_contact_free.py`](generate/generate_dataset_contact_free.py) | Gera o conjunto de dados do Cartpole com o solver analítico e salva em HDF5 |
+| [`generate/trajectory_sampler.py`](generate/trajectory_sampler.py) | `TrajectorySampler`: sorteia estados iniciais e ações e simula as trajetórias |
+| [`generate/simulation_sampler.py`](generate/simulation_sampler.py) | `WarpSimDataGenerator`: classe base do amostrador (faixas de sorteio, sorteio uniforme ou Sobol) |
+| [`utils/commons.py`](utils/commons.py) | Faixas de sorteio de cada robô (`JOINT_Q_MIN`, `JOINT_QD_MAX`, `JOINT_ACT_SCALE`...) |
+| [`utils/datasets.py`](utils/datasets.py) | `TrajectoryDataset`: corta as trajetórias em janelas de 10 passos |
 | [`train/train.py`](train/train.py) | Ponto de entrada do treino |
-| [`algorithms/vanilla_trainer.py`](algorithms/vanilla_trainer.py) | Laço de treino supervisionado: a rede aprende a prever o próximo estado gerado pelo solver analítico |
+| [`train/cfg/Cartpole/transformer.yaml`](train/cfg/Cartpole/transformer.yaml) | Configuração de treino do Cartpole (dados, otimizador, arquitetura) |
+| [`algorithms/sequence_model_trainer.py`](algorithms/sequence_model_trainer.py) | `SequenceModelTrainer`: o treinador usado com o Transformer; só troca o conjunto de dados pelas janelas |
+| [`algorithms/vanilla_trainer.py`](algorithms/vanilla_trainer.py) | `VanillaTrainer`: o laço de treino em si (alvos, normalização, perda, otimização, validação) |

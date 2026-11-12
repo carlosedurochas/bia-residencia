@@ -27,6 +27,11 @@ estados iniciais:
 | [`pendulum.mp4`](videos/pendulum.mp4) | Pêndulo duplo batendo no chão (3 episódios de 200 passos) |
 | [`anymal_walk.mp4`](videos/anymal_walk.mp4) | Quadrúpede ANYmal andando com a mesma política de RL (400 passos) |
 | [`nerd_comparacao.mp4`](videos/nerd_comparacao.mp4) | Os três em sequência (32 s) |
+| [`cartpole_treino_curto.mp4`](videos/cartpole_treino_curto.mp4) | Cartpole em três painéis: analítico, NeRD dos autores e o nosso treino curto (ver abaixo) |
+| [`cartpole_treinos.mp4`](videos/cartpole_treinos.mp4) | Cartpole em quatro painéis: analítico, autores (5 milhões de iterações) e os nossos treinos de 240 mil e 5.600 |
+| [`anymal_walk_treino_curto.mp4`](videos/anymal_walk_treino_curto.mp4) | ANYmal andando: analítico, autores e o nosso treino curto (o robô cai no passo 174) |
+| [`anymal_walk_treinos.mp4`](videos/anymal_walk_treinos.mp4) | ANYmal andando em quatro painéis: analítico, autores e os nossos treinos de 240 mil e 5.600 |
+| [`anymal_dataset_10x10.mp4`](videos/anymal_dataset_10x10.mp4) | Grade 10×10 com 100 trajetórias de exemplo do conjunto de dados do ANYmal (0,25x) |
 
 ## Resultados
 
@@ -56,6 +61,186 @@ Política `forward_walk/0` do ANYmal (treinada pelos autores dentro do NeRD), 51
 | Neural (NeRD) | 1.327,0 | 991,3 passos |
 
 A política treinada no simulador neural se comporta quase igual no analítico: a diferença de recompensa é de 0,2%.
+
+## Treinos do NeRD no Cartpole
+
+Para ver o processo de treino funcionando (explicado em [`guia_treino_nerd.md`](guia_treino_nerd.md)), treinamos o
+NeRD do zero para o Cartpole com a mesma configuração dos autores, mas por bem menos tempo: um treino curto no
+Windows e um de cerca de 2h30 no WSL2.
+
+| | Autores | Treino de 240 mil (WSL2) | Treino curto (Windows) |
+|---|---|---|---|
+| Dados | 1 milhão de transições | Os mesmos 1,02 milhão (10.240 trajetórias de 100 passos), gerados com os mesmos parâmetros | Os mesmos |
+| Iterações de treino | 5 milhões | 240 mil (600 épocas de 400), 2h35 | 5.600 (14 épocas de 400), cerca de 25 min |
+| Erro passivo de 100 passos: carrinho | 0,16 mm | 4,7 mm | 31 mm |
+| Erro passivo de 100 passos: pêndulo | 0,02° | 0,10° | 2,85° |
+
+Mesmo protocolo para os três: 2.048 trajetórias de 100 passos, semente 500, modelo com a melhor avaliação no treino.
+
+### Treino de 240 mil iterações (WSL2)
+
+![Curvas de aprendizado, 240 mil iterações](results/curva_treino_3h_cartpole.png)
+
+- Com 43 vezes mais iterações que o treino curto, o erro de 100 passos caiu cerca de 7 vezes no carrinho e 28 vezes
+  no pêndulo. Em relação ao modelo dos autores, que treinou 20 vezes mais, o erro ainda é 29 vezes maior no carrinho
+  e 4,5 vezes maior no pêndulo.
+- As curvas continuam caindo no fim (a taxa de aprendizado decai até a última época), então o modelo também não
+  convergiu. A avaliação de 10 passos chegou a 7,4 × 10⁻⁷ (começou em 0,57).
+- No vídeo [`cartpole_treinos.mp4`](videos/cartpole_treinos.mp4) o modelo de 240 mil acompanha o analítico de
+  perto, ao contrário do treino curto.
+- Cada iteração levou cerca de 0,037 s: 0,015 s lendo dados (8 processos na CPU) e 0,020 s de cálculo na GPU.
+  Nesse ritmo, as 5 milhões de iterações dos autores levariam cerca de 2 dias.
+
+Log em [`results/treino_3h_cartpole.log`](results/treino_3h_cartpole.log) e avaliação em
+[`results/passive_Cartpole_treino_3h.log`](results/passive_Cartpole_treino_3h.log).
+
+No WSL2 (Ubuntu), com o repositório em `~/nerd_ws/nerd`, os dados em `~/nerd_ws/data` e um ambiente em `~/envs/nerd`
+(o `/usr/lib/wsl/lib` é onde o WSL coloca a biblioteca CUDA do driver do Windows):
+
+```bash
+source ~/envs/nerd/bin/activate
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH NERD_DIR=$HOME/nerd_ws/nerd
+python nerd_run.py train/train.py --cfg ./cfg/Cartpole/transformer.yaml \
+    --logdir $HOME/nerd_ws/data/trained_models/Cartpole/treino_3h_240k --no-time-stamp \
+    --cfg-overrides "algorithm.num_epochs 601 algorithm.num_iters_per_epoch 400 algorithm.dataset.num_data_workers 8"
+```
+
+Para avaliar e gravar no Windows, copie a pasta do treino (o `cfg.yaml` e o `nn/best_eval_model.pt`) para
+`C:\data\trained_models\Cartpole\treino_3h_240k\`.
+
+### Treino curto (Windows)
+
+![Curvas de aprendizado](results/curva_treino_cartpole.png)
+
+- O modelo aprende rápido: o erro da simulação de 10 passos usada no treino cai de 0,57 para 0,0002 (quase 3.000
+  vezes) e ainda está caindo quando o treino para, então ele não convergiu.
+- No teste de 100 passos o modelo curto erra de 125 a 200 vezes mais que o dos autores. Ele só foi avaliado em
+  horizontes de 10 passos durante o treino, e em 100 passos os erros se acumulam bem mais.
+- O vídeo [`cartpole_treino_curto.mp4`](videos/cartpole_treino_curto.mp4) mostra os três lado a lado, dos mesmos
+  estados iniciais: o pêndulo do modelo curto se afasta visivelmente do analítico ao longo de cada episódio.
+
+### Como foi feito
+
+```powershell
+$run = "nerd_neural_solver\nerd_run.py"
+
+# 1. Dados (vão para C:\data\datasets\Cartpole: o caminho padrão ../../data sai do repositório)
+C:\nerd-env\python.exe $run generate/generate_dataset_contact_free.py --env-name Cartpole --num-transitions 1000000 --dataset-name trajectory_len-100_1M_train.hdf5 --trajectory-length 100 --num-envs 2048 --seed 0
+C:\nerd-env\python.exe $run generate/generate_dataset_contact_free.py --env-name Cartpole --num-transitions 200000 --dataset-name trajectory_len-100_valid.hdf5 --trajectory-length 100 --num-envs 2048 --seed 10
+
+# 2. Treino (a pasta de saída precisa ser nova)
+C:\nerd-env\python.exe $run train/train.py --cfg ./cfg/Cartpole/transformer.yaml --logdir C:\data\trained_models\Cartpole\treino_curto_6k --no-time-stamp --cfg-overrides "algorithm.num_epochs 15 algorithm.num_iters_per_epoch 400 algorithm.dataset.num_data_workers 0"
+
+# 3. Curvas e avaliação
+C:\nerd-env\python.exe nerd_neural_solver\plot_training.py nerd_neural_solver\results\treino_curto_cartpole.log nerd_neural_solver\results\curva_treino_cartpole.png
+C:\nerd-env\python.exe $run eval/eval_passive/eval_passive_motion.py --env-name Cartpole --model-path C:/data/trained_models/Cartpole/treino_curto_6k/nn/best_eval_model.pt --env-mode neural --num-envs 2048 --num-rollouts 2048 --rollout-horizon 100 --seed 500
+```
+
+O log do treino está em [`results/treino_curto_cartpole.log`](results/treino_curto_cartpole.log). Os modelos
+treinados ficam em `C:\data\trained_models\Cartpole\treino_curto_6k\nn\` (melhor avaliação, melhor validação e final).
+
+**Limitações do treino no Windows:**
+- **A leitura dos dados é o gargalo.** Com um único processo de leitura, a GPU fica cerca de 75% do tempo ociosa
+  (cerca de 22% de uso medido). Com 4 processos, o Windows não consegue enviar o conjunto de dados (cerca de 760 MB
+  na memória) para cada um e o treino falha. No Linux isso não acontece, porque os processos compartilham a memória.
+- **A pasta de saída precisa ser nova.** Se ela já existe, o treinador consulta uma opção
+  (`skip_check_log_override`) que não está nos argumentos do `train.py` público, e o treino falha.
+
+## Treinos do NeRD no ANYmal (quadrúpede)
+
+Mesmo procedimento do Cartpole, agora com o quadrúpede ANYmal e a configuração dos autores
+(`train/cfg/Anymal/transformer.yaml`): rede de 10,9 M de parâmetros e, como entrada, além do estado e dos comandos
+das 12 juntas, os pontos, normais e profundidades de contato com o chão e a direção da gravidade. O script
+[`treinar_anymal.sh`](treinar_anymal.sh) faz tudo no WSL2:
+
+```bash
+bash treinar_anymal.sh treino_curto_6k 15 400     # 5.600 iterações (cerca de 6 min)
+bash treinar_anymal.sh treino_240k 601 400        # 240 mil iterações (cerca de 4 h)
+bash treinar_anymal.sh treino_autores 1001 5000   # 5 milhões, como os autores (cerca de 3,5 dias)
+DADOS=5M bash treinar_anymal.sh treino_240k_5M 601 400   # com o conjunto de 5 milhões de transições
+```
+
+**Os dados.** O vídeo [`anymal_dataset_10x10.mp4`](videos/anymal_dataset_10x10.mp4) mostra 100 trajetórias de
+exemplo, feitas pelo mesmo gerador do conjunto de treino: todas partem do robô em pé e recebem comandos aleatórios nas
+juntas, e em 100 passos (1,7 s) o robô se contorce, tropeça ou tomba. São trajetórias equivalentes às do conjunto, não
+as mesmas (o sorteio depende do número de ambientes). Para refazer, no Windows:
+`C:\nerd-env\python.exe nerd_neural_solver\video_trajetorias_anymal.py`. O script usa a renderização em quadros do
+Warp (um robô por quadro) com uma correção: o código do NeRD supõe uma ordem das formas desenhadas que não vale no
+ANYmal e falha com `KeyError`, então o script agrupa as formas pelo corpo a que pertencem.
+
+| Conjunto | Transições | Tamanho | Geração |
+|---|---|---|---|
+| Treino, 1 milhão (`trajectory_len-100_1M_train.hdf5`) | 1,02 milhão (10.240 trajetórias) | 1,07 GB | cerca de 3 min |
+| Treino, 5 milhões (`trajectory_len-100_5M_train.hdf5`) | 5,12 milhões (51.200 trajetórias) | 5,4 GB | cerca de 3 min (pico de 13 GB de RAM) |
+| Validação (`trajectory_len-100_valid.hdf5`) | 205 mil | 215 MB | cerca de 1 min |
+
+O artigo do NeRD usa 100 mil trajetórias de 100 passos (10 milhões de transições) por robô, com estados iniciais
+sorteados. O comando do README do repositório gera só 1 milhão.
+
+| Teste | Analítico | NeRD dos autores (5 milhões) | Nosso treino de 240 mil | Nosso treino curto (5.600) |
+|---|---|---|---|---|
+| Passivo de 100 passos: posição da base | — | 4,9 mm | 21 mm | 35 mm |
+| Passivo de 100 passos: orientação da base | — | 0,33° | 0,89° | 2,5° |
+| Passivo de 100 passos: juntas | — | 0,32° | 1,1° | 2,3° |
+| Política de caminhada: recompensa média | 1.329,9 | 1.327,0 | **1.329,3** | 241,0 |
+| Política de caminhada: duração média do episódio | 993 passos | 991 passos | 993 passos | 195 passos |
+
+Mesmos protocolos dos testes com o modelo dos autores: 2.048 trajetórias passivas de 100 passos (semente 500) e a
+política `forward_walk/0` em 512 episódios de até 1.000 passos. O vídeo
+[`anymal_walk_treinos.mp4`](videos/anymal_walk_treinos.mp4) mostra os quatro lado a lado.
+
+### Treino de 240 mil iterações (WSL2)
+
+![Curvas de aprendizado, ANYmal 240 mil](results/curva_treino_240k_anymal.png)
+
+- **Duração:** 600 épocas de 400 iterações em cerca de 4 h (24 s por época).
+- **Sobreajuste:** a perda de treino caiu o tempo todo (até cerca de 2 × 10⁻⁴), mas a de validação estacionou em
+  cerca de 7 × 10⁻³ a partir da época 150, e a avaliação de 10 passos ficou entre 0,75 e 1,25 desde a época 10. O
+  modelo passou a decorar o conjunto de treino em vez de generalizar. Uma hipótese é que 1 milhão de transições
+  seja pouco para um robô com contato. O README do NeRD não informa o tamanho dos dados usados pelos autores no
+  ANYmal; a configuração deles admite até 100 milhões de transições (`max_capacity`).
+- **Qual modelo usar:** o treinador salva o melhor na avaliação de 10 passos (época 139) e o melhor na validação
+  (época 493). O de validação foi melhor nos testes (passivo: 21 mm / 0,89° / 1,1°, contra 43 mm / 2,5° / 2,1° do
+  outro) e é o da tabela. Com sobreajuste, a avaliação de 10 passos, que é ruidosa, não escolheu bem.
+- **Caminhada:** com os dois modelos, a política anda os episódios inteiros e a recompensa empata com o analítico,
+  embora o erro passivo ainda seja 3 a 4 vezes o do modelo dos autores. Uma explicação provável: sem controle, o
+  robô desaba e bate o corpo no chão, situação com muitos contatos e mais difícil de prever, enquanto na caminhada
+  a política o mantém em pé e corrige pequenos desvios a cada passo. Para avaliar essa política de caminhada, o
+  modelo de 240 mil já se mostrou suficiente.
+
+Logs em [`results/treino_240k_anymal.log`](results/treino_240k_anymal.log), `results/passive_Anymal_240k_*.log` e
+`results/rl_anymal_forward_neural_240k_*.log`. Modelos copiados para `C:\data\trained_models\Anymal\treino_240k\`.
+
+### Treino curto (5.600 iterações)
+
+- **Dados:** 1 milhão de transições (trajetórias de 100 passos partindo do robô em pé, com comandos aleatórios nas
+  juntas e contato com o chão) mais 200 mil de validação, simuladas pelo solver analítico em cerca de 4 min
+  (1,07 GB + 215 MB).
+- **Treino:** 5.600 iterações (14 épocas de 400), cerca de 6 min. Cada iteração levou 0,060 s, contra 0,037 s no
+  Cartpole: metade lendo dados e metade de cálculo na GPU. As 5 milhões de iterações dos autores levariam cerca de
+  3,5 dias.
+
+![Curvas de aprendizado, ANYmal](results/curva_treino_curto_anymal.png)
+
+- No teste passivo, o modelo curto erra cerca de 7 vezes mais que o dos autores.
+- O teste com a política de caminhada é bem mais exigente: com o modelo curto, os episódios terminam após 195 passos
+  em média, em vez de cerca de 990, porque a simulação neural acumula erro até levar o robô a um estado de queda. A
+  recompensa cai para 18% da obtida com o solver analítico.
+- No vídeo [`anymal_walk_treino_curto.mp4`](videos/anymal_walk_treino_curto.mp4) o robô do modelo curto começa a
+  andar como os outros, mas desaba com as pernas abertas no passo 174 (3,5 s); o painel fica parado no último quadro.
+- Diferente do Cartpole, a avaliação de 10 passos parou de cair depois da época 3 (oscila entre 0,8 e 1,25), embora as
+  perdas de treino e validação continuem caindo. O treino de 240 mil confirmou que esse patamar não cai com mais
+  iterações (ver acima).
+
+Logs em [`results/treino_curto_anymal.log`](results/treino_curto_anymal.log),
+[`results/passive_Anymal_treino_curto.log`](results/passive_Anymal_treino_curto.log) e
+[`results/rl_anymal_forward_neural_treino_curto.log`](results/rl_anymal_forward_neural_treino_curto.log). Para
+avaliar no Windows, os modelos foram copiados para `C:\data\trained_models\Anymal\treino_curto_6k\`:
+
+```powershell
+C:\nerd-env\python.exe $run eval/eval_passive/eval_passive_motion.py --env-name Anymal --model-path C:/data/trained_models/Anymal/treino_curto_6k/nn/best_eval_model.pt --env-mode neural --num-envs 2048 --num-rollouts 2048 --rollout-horizon 100 --seed 500
+C:\nerd-env\python.exe $run eval/eval_rl/run_rl.py --rl-cfg ./cfg/Anymal/anymal_forward.yaml --playback ../../pretrained_models/RL_policies/Anymal/forward_walk/0/nn/AnymalPPO.pth --num-envs 512 --num-games 512 --env-mode neural --nerd-model-path C:/data/trained_models/Anymal/treino_curto_6k/nn/best_eval_model.pt
+```
 
 ## Como reproduzir
 
@@ -90,11 +275,15 @@ C:\nerd-env\python.exe nerd_neural_solver\nerd_run.py eval/eval_rl/run_rl.py --r
 
 | Arquivo | Papel |
 |---|---|
+| [`guia_treino_nerd.md`](guia_treino_nerd.md) | Guia passo a passo de como o NeRD é treinado (geração de dados, janelas, alvos, perda, otimização) |
 | [`nerd_codigo/`](nerd_codigo/) | Cópia dos arquivos do NeRD que explicam o solver neural, com guia de leitura |
 | `nerd_run.py` | Lançador: roda qualquer script do NeRD com o PyTorch atual (ver abaixo) |
-| `make_videos.py` | Junta os GIFs dos dois solvers em vídeos lado a lado |
-| `run_all.bat` | Refaz tudo |
-| `results/` | Logs das métricas |
+| `make_videos.py` | Junta os GIFs gravados em vídeos lado a lado (2 ou mais painéis) |
+| `plot_training.py` | Desenha as curvas de aprendizado a partir do log do treino |
+| `treinar_anymal.sh` | Gera os dados e treina o NeRD do ANYmal no WSL2 |
+| `video_trajetorias_anymal.py` | Grava a grade 10×10 com trajetórias de exemplo do conjunto de dados do ANYmal |
+| `run_all.bat` | Refaz as métricas e os vídeos da comparação com os modelos pré-treinados |
+| `results/` | Logs das métricas e do treino curto, e as curvas de aprendizado |
 | `videos/` | Vídeos de comparação |
 
 ## Adaptações em relação ao repositório original
@@ -107,6 +296,9 @@ O NeRD foi testado com Python 3.8 e PyTorch 2.2.2 no Ubuntu. Aqui roda no Window
   Python pode executar código. Em vez de desligar a proteção, o `nerd_run.py` libera só as 20 classes que os
   checkpoints usam (a arquitetura do NeRD, módulos do `torch.nn` e tipos do NumPy), listadas com
   `torch.serialization.get_unsafe_globals_in_checkpoint`.
+- **Execução pelo lançador.** O `nerd_run.py` roda o script como se fosse chamado diretamente: põe a pasta dele no
+  caminho de importação (o `train.py` importa o `arguments.py` vizinho) e usa a proteção `if __name__ == "__main__"`,
+  necessária no Windows para que processos auxiliares não reexecutem o script.
 - **Pacote `gym`:** usado pelos scripts de RL e ausente do `requirements.txt`.
 - **Aviso `Warp CUDA error: Failed to get driver entry point 'cuDeviceGetUuid'`:** aparece com o Warp 1.8.0 e o
   driver atual, mas a GPU é usada normalmente.

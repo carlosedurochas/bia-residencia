@@ -1,0 +1,27 @@
+﻿Warp DeprecationWarning: The `warp.sim` module is deprecated and will be removed in v1.10. Please transition to using the forthcoming Newton library instead.
+Warp 1.8.0 initialized:
+   CUDA Toolkit 12.8, Driver 13.3
+   Devices:
+     "cpu"      : "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel"
+     "cuda:0"   : "NVIDIA GeForce RTX 5070 Ti" (16 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     C:\Users\dectra\AppData\Local\NVIDIA\warp\Cache\1.8.0
+Number of Model Parameters:  2713668
+[96m [NeuralEnvironment] Creating abstract contact environment: Cartpole. [0m
+
+Module warp.sim.integrator_featherstone 18b3327 load on device 'cuda:0' took 34.37 ms  (cached)
+Module envs.abstract_contact_environment 8e8d790 load on device 'cuda:0' took 1.64 ms  (cached)
+Module integrators.integrator_neural ee402cd load on device 'cuda:0' took 2.16 ms  (cached)
+[96m [NeuralEnvironment] Created a Neural Integrator. [0m
+
+Module warp.sim.articulation 770a52a load on device 'cuda:0' took 9.95 ms  (cached)
+Module envs.warp_sim_envs.env_cartpole 01fd57b load on device 'cuda:0' took 2.26 ms  (cached)
+Module utils.warp_utils 294c46a load on device 'cuda:0' took 1.79 ms  (cached)
+Module envs.warp_sim_envs.utils d93eb17 load on device 'cuda:0' took 4.22 ms  (cached)
+
+=========================================
+Base position error mean       = 0.030651
+Base position error std        = 0.037804
+Joint position error mean      = 0.049752 rad (2.850553 deg)
+Joint position Error per dof   = tensor([0.049752], device='cuda:0')
+=========================================

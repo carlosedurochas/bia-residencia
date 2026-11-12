@@ -1,0 +1,223 @@
+Warp CUDA error: Failed to get driver entry point 'cuDeviceGetUuid' (CUDA error 1)
+Warp CUDA error: Function cuDeviceGetUuid_f: a suitable driver entry point was not found
+Warp CUDA error 36: API call is not supported in the installed CUDA driver (in function cuda_init, /builds/omniverse/warp/warp/native/warp.cu:284)
+Warp DeprecationWarning: The `warp.sim` module is deprecated and will be removed in v1.10. Please transition to using the forthcoming Newton library instead.
+Warp 1.8.0 initialized:
+   CUDA Toolkit 12.8, Driver 13.3
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5070 Ti" (16 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/dectra/.cache/warp/1.8.0
+[96m [NeuralEnvironment] Creating abstract contact environment: AnymalJointPositionControl. [0m
+Module warp.sim.inertia 4136106 load on device 'cuda:0' took 1.91 ms  (cached)
+Module warp.sim.collide 3b78b77 load on device 'cuda:0' took 10.49 ms  (cached)
+Module warp.sim.integrator_featherstone 18b3327 load on device 'cuda:0' took 9.80 ms  (cached)
+Module envs.abstract_contact_environment 8e8d790 load on device 'cuda:0' took 1.26 ms  (cached)
+Module integrators.integrator_neural ee402cd load on device 'cuda:0' took 1.91 ms  (cached)
+[91m [NeuralEnvironment] Created a DUMMY Neural Integrator. [0m
+number of parameters: 10.83M
+Model = 
+ ModelMixedInput(
+  (encoders): ModuleDict(
+    (low_dim): MLPBase(
+      (body): Sequential()
+    )
+  )
+  (transformer_model): GPT(
+    (transformer): ModuleDict(
+      (wte): Linear(in_features=150, out_features=384, bias=True)
+      (wpe): Embedding(32, 384)
+      (drop): Dropout(p=0.0, inplace=False)
+      (h): ModuleList(
+        (0-5): 6 x Block(
+          (ln_1): LayerNorm()
+          (attn): CausalSelfAttention(
+            (c_attn): Linear(in_features=384, out_features=1152, bias=False)
+            (c_proj): Linear(in_features=384, out_features=384, bias=False)
+            (attn_dropout): Dropout(p=0.0, inplace=False)
+            (resid_dropout): Dropout(p=0.0, inplace=False)
+          )
+          (ln_2): LayerNorm()
+          (mlp): MLP(
+            (c_fc): Linear(in_features=384, out_features=1536, bias=False)
+            (gelu): GELU(approximate='none')
+            (c_proj): Linear(in_features=1536, out_features=384, bias=False)
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (ln_f): LayerNorm()
+    )
+    (lm_head): Linear(in_features=384, out_features=384, bias=False)
+  )
+  (model): MLPDeterministic(
+    (feature_net): MLPBase(
+      (body): Sequential(
+        (0): Linear(in_features=384, out_features=64, bias=True)
+        (1): ReLU()
+      )
+    )
+    (output_net): Linear(in_features=64, out_features=37, bias=True)
+  )
+)
+# Model Parameters =  10866597
+Computing dataset statistics...
+Finished computing dataset statistics...
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+Module utils.warp_utils 294c46a load on device 'cuda:0' took 4.29 ms  (cached)
+Module warp.sim.articulation 770a52a load on device 'cuda:0' took 12.34 ms  (cached)
+Module envs.warp_sim_envs.env_anymal_joint_position_control a278f29 load on device 'cuda:0' took 5.17 ms  (cached)
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 10.66702938, Rollout MSE Error (joint_q) = 0.07123651 [0m
+[92m Save Best Eval Model at Epoch 0 with MSE error 10.66702938079834. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 0 [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.84033508, itemized = {state_0: 0.00003451, state_1: 0.00005090, state_2: 0.00008900, state_3: 0.00056004, state_4: 0.00009961, state_5: 0.00005076, state_6: 0.00000046, state_7: 0.00418745, state_8: 0.00208862, state_9: 0.01065366, state_10: 0.00434584, state_11: 0.00268238, state_12: 0.00957395, state_13: 0.00441168, state_14: 0.00219365, state_15: 0.01061474, state_16: 0.00429627, state_17: 0.00261147, state_18: 0.01499987, state_19: 1.16331207, state_20: 0.31804960, state_21: 0.07733804, state_22: 0.00324612, state_23: 0.00865839, state_24: 0.03902699, state_25: 3.94663483, state_26: 0.73080238, state_27: 4.19755310, state_28: 3.98596527, state_29: 0.72089211, state_30: 4.14089966, state_31: 4.19898254, state_32: 0.74053032, state_33: 4.18652832, state_34: 4.19030853, state_35: 0.71720276, state_36: 4.26402557, state_MSE: 1.01901367, q_error_norm: 0.21917734, qd_error_norm: 5.34263672} [0m
+[96m [Time Report] time(epoch): 6.486 sec, time(other): 0.049 sec, time(dataloader): 2.087 sec, time(compute_loss): 1.812 sec, time(backward): 0.000 sec, time(eval): 2.522 sec [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 0 with loss 0.84033508. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.52443445, Rollout MSE Error (joint_q) = 0.00973126 [0m
+[92m Save Best Eval Model at Epoch 1 with MSE error 1.5244344472885132. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 1 [0m
+[96m [Train] loss = 0.18896246, itemized = {state_0: 0.00000290, state_1: 0.00000500, state_2: 0.00000712, state_3: 0.00005513, state_4: 0.00001101, state_5: 0.00000563, state_6: 0.00000013, state_7: 0.00050397, state_8: 0.00053179, state_9: 0.00236765, state_10: 0.00047276, state_11: 0.00027233, state_12: 0.00253014, state_13: 0.00049271, state_14: 0.00065871, state_15: 0.00356947, state_16: 0.00047123, state_17: 0.00036331, state_18: 0.00256226, state_19: 0.24881147, state_20: 0.12745649, state_21: 0.05130293, state_22: 0.00185806, state_23: 0.00432149, state_24: 0.01416787, state_25: 1.36921112, state_26: 0.22740440, state_27: 1.03045898, state_28: 1.36360229, state_29: 0.21428610, state_30: 0.89443336, state_31: 1.52376038, state_32: 0.22737209, state_33: 1.00793022, state_34: 1.31044708, state_35: 0.20626451, state_36: 0.96380684, state_MSE: 0.29193995, q_error_norm: 0.05476835, qd_error_norm: 2.49829758} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.07278707, itemized = {state_0: 0.00000055, state_1: 0.00000105, state_2: 0.00000214, state_3: 0.00001306, state_4: 0.00000197, state_5: 0.00000140, state_6: 0.00000002, state_7: 0.00010221, state_8: 0.00025588, state_9: 0.00087340, state_10: 0.00009410, state_11: 0.00140188, state_12: 0.00008445, state_13: 0.00011064, state_14: 0.00046544, state_15: 0.00009521, state_16: 0.00010017, state_17: 0.00025715, state_18: 0.00042600, state_19: 0.13007986, state_20: 0.05294605, state_21: 0.02561719, state_22: 0.00090730, state_23: 0.00193009, state_24: 0.00608392, state_25: 0.56247646, state_26: 0.09473432, state_27: 0.28943806, state_28: 0.59255699, state_29: 0.09551489, state_30: 0.34608540, state_31: 0.68309402, state_32: 0.09243027, state_33: 0.36599396, state_34: 0.72113358, state_35: 0.09448799, state_36: 0.31849152, state_MSE: 0.12103482, q_error_norm: 0.02750039, qd_error_norm: 1.72187485} [0m
+[96m [Time Report] time(epoch): 26.103 sec, time(other): 0.281 sec, time(dataloader): 12.645 sec, time(compute_loss): 6.521 sec, time(backward): 5.311 sec, time(eval): 1.241 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.792568, device='cuda:0'), grad_norm_after_clip: tensor(0.764403, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 1 with loss 0.07278707. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.22569501, Rollout MSE Error (joint_q) = 0.00758063 [0m
+[92m Save Best Eval Model at Epoch 2 with MSE error 1.225695013999939. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 2 [0m
+[96m [Train] loss = 0.05870188, itemized = {state_0: 0.00000043, state_1: 0.00000068, state_2: 0.00000130, state_3: 0.00000781, state_4: 0.00000218, state_5: 0.00000112, state_6: 0.00000002, state_7: 0.00008611, state_8: 0.00021645, state_9: 0.00079881, state_10: 0.00008372, state_11: 0.00011512, state_12: 0.00070670, state_13: 0.00008967, state_14: 0.00025580, state_15: 0.00134115, state_16: 0.00008348, state_17: 0.00010040, state_18: 0.00097146, state_19: 0.07997318, state_20: 0.04423294, state_21: 0.02082228, state_22: 0.00071878, state_23: 0.00148860, state_24: 0.00479144, state_25: 0.48452686, state_26: 0.08057117, state_27: 0.32131546, state_28: 0.49004482, state_29: 0.07991406, state_30: 0.28696699, state_31: 0.48638641, state_32: 0.08029604, state_33: 0.30431458, state_34: 0.46553635, state_35: 0.07614325, state_36: 0.27198555, state_MSE: 0.09688898, q_error_norm: 0.02658464, qd_error_norm: 1.45313385} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.04257617, itemized = {state_0: 0.00000030, state_1: 0.00000068, state_2: 0.00000082, state_3: 0.00000393, state_4: 0.00000128, state_5: 0.00000089, state_6: 0.00000001, state_7: 0.00007454, state_8: 0.00001475, state_9: 0.00059715, state_10: 0.00005592, state_11: 0.00131776, state_12: 0.00005183, state_13: 0.00006174, state_14: 0.00023812, state_15: 0.00028739, state_16: 0.00005742, state_17: 0.00032170, state_18: 0.00035682, state_19: 0.05290531, state_20: 0.03274998, state_21: 0.01608213, state_22: 0.00053849, state_23: 0.00113392, state_24: 0.00358298, state_25: 0.36391411, state_26: 0.05926878, state_27: 0.23858875, state_28: 0.35564236, state_29: 0.05707235, state_30: 0.18472816, state_31: 0.35819748, state_32: 0.05828025, state_33: 0.15671502, state_34: 0.37136292, state_35: 0.05775332, state_36: 0.18544012, state_MSE: 0.06911890, q_error_norm: 0.02081327, qd_error_norm: 1.23977531} [0m
+[96m [Time Report] time(epoch): 24.485 sec, time(other): 0.279 sec, time(dataloader): 11.496 sec, time(compute_loss): 6.434 sec, time(backward): 5.246 sec, time(eval): 0.926 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.574868, device='cuda:0'), grad_norm_after_clip: tensor(0.574868, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 2 with loss 0.04257617. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.99249476, Rollout MSE Error (joint_q) = 0.00664120 [0m
+[92m Save Best Eval Model at Epoch 3 with MSE error 0.9924947619438171. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 3 [0m
+[96m [Train] loss = 0.04324687, itemized = {state_0: 0.00000029, state_1: 0.00000050, state_2: 0.00000090, state_3: 0.00000491, state_4: 0.00000152, state_5: 0.00000079, state_6: 0.00000002, state_7: 0.00006218, state_8: 0.00009422, state_9: 0.00059279, state_10: 0.00005822, state_11: 0.00020839, state_12: 0.00075794, state_13: 0.00007378, state_14: 0.00023118, state_15: 0.00118022, state_16: 0.00005784, state_17: 0.00007496, state_18: 0.00083088, state_19: 0.05323184, state_20: 0.03038043, state_21: 0.01652427, state_22: 0.00051803, state_23: 0.00107117, state_24: 0.00342956, state_25: 0.35152302, state_26: 0.05853535, state_27: 0.21734522, state_28: 0.33903439, state_29: 0.05578280, state_30: 0.20010588, state_31: 0.48678043, state_32: 0.06340110, state_33: 0.21228977, state_34: 0.32465042, state_35: 0.05396119, state_36: 0.19731449, state_MSE: 0.07216518, q_error_norm: 0.02242883, qd_error_norm: 1.18527832} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.03510788, itemized = {state_0: 0.00000027, state_1: 0.00000048, state_2: 0.00000064, state_3: 0.00000354, state_4: 0.00000098, state_5: 0.00000055, state_6: 0.00000001, state_7: 0.00004520, state_8: 0.00001395, state_9: 0.00035377, state_10: 0.00004823, state_11: 0.00040841, state_12: 0.00010151, state_13: 0.00006101, state_14: 0.00002876, state_15: 0.00004071, state_16: 0.00004688, state_17: 0.00016032, state_18: 0.00006249, state_19: 0.04466921, state_20: 0.02588480, state_21: 0.01336269, state_22: 0.00043746, state_23: 0.00099531, state_24: 0.00272300, state_25: 0.27764196, state_26: 0.04679355, state_27: 0.18699581, state_28: 0.27768984, state_29: 0.05136817, state_30: 0.15747018, state_31: 0.31202553, state_32: 0.04968513, state_33: 0.12953266, state_34: 0.28523016, state_35: 0.04293711, state_36: 0.14935781, state_MSE: 0.05557238, q_error_norm: 0.02092626, qd_error_norm: 1.08302444} [0m
+[96m [Time Report] time(epoch): 23.522 sec, time(other): 0.259 sec, time(dataloader): 11.053 sec, time(compute_loss): 6.167 sec, time(backward): 5.084 sec, time(eval): 0.824 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.492067, device='cuda:0'), grad_norm_after_clip: tensor(0.492024, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 3 with loss 0.03510788. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.07313430, Rollout MSE Error (joint_q) = 0.00685653 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 4 [0m
+[96m [Train] loss = 0.03500309, itemized = {state_0: 0.00000023, state_1: 0.00000044, state_2: 0.00000068, state_3: 0.00000396, state_4: 0.00000126, state_5: 0.00000063, state_6: 0.00000002, state_7: 0.00004786, state_8: 0.00024410, state_9: 0.00077648, state_10: 0.00004979, state_11: 0.00007018, state_12: 0.00037723, state_13: 0.00005822, state_14: 0.00017350, state_15: 0.00076333, state_16: 0.00004540, state_17: 0.00007113, state_18: 0.00048943, state_19: 0.04309603, state_20: 0.02406183, state_21: 0.01333289, state_22: 0.00043543, state_23: 0.00087092, state_24: 0.00277396, state_25: 0.27012842, state_26: 0.04511701, state_27: 0.18448410, state_28: 0.28991665, state_29: 0.04658647, state_30: 0.16003036, state_31: 0.39729828, state_32: 0.05127395, state_33: 0.17052736, state_34: 0.25862408, state_35: 0.04235620, state_36: 0.15510053, state_MSE: 0.05835644, q_error_norm: 0.01954537, qd_error_norm: 1.05199074} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.03002133, itemized = {state_0: 0.00000018, state_1: 0.00000032, state_2: 0.00000057, state_3: 0.00000263, state_4: 0.00000123, state_5: 0.00000068, state_6: 0.00000000, state_7: 0.00004304, state_8: 0.00001008, state_9: 0.00057581, state_10: 0.00003474, state_11: 0.00031678, state_12: 0.00003635, state_13: 0.00004172, state_14: 0.00009698, state_15: 0.00005602, state_16: 0.00003466, state_17: 0.00016001, state_18: 0.00003189, state_19: 0.03491165, state_20: 0.02166779, state_21: 0.01118745, state_22: 0.00045958, state_23: 0.00073567, state_24: 0.00243904, state_25: 0.23636568, state_26: 0.03911790, state_27: 0.14546963, state_28: 0.26415825, state_29: 0.03907385, state_30: 0.13235202, state_31: 0.27388193, state_32: 0.04081311, state_33: 0.11653974, state_34: 0.24140327, state_35: 0.03810445, state_36: 0.17139479, state_MSE: 0.04895999, q_error_norm: 0.01696833, qd_error_norm: 0.98850502} [0m
+[96m [Time Report] time(epoch): 24.286 sec, time(other): 0.271 sec, time(dataloader): 11.248 sec, time(compute_loss): 6.278 sec, time(backward): 5.556 sec, time(eval): 0.712 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.427138, device='cuda:0'), grad_norm_after_clip: tensor(0.427138, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 4 with loss 0.03002133. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.16151464, Rollout MSE Error (joint_q) = 0.00679329 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 5 [0m
+[96m [Train] loss = 0.02751688, itemized = {state_0: 0.00000017, state_1: 0.00000031, state_2: 0.00000052, state_3: 0.00000300, state_4: 0.00000092, state_5: 0.00000050, state_6: 0.00000001, state_7: 0.00003678, state_8: 0.00012646, state_9: 0.00058005, state_10: 0.00003711, state_11: 0.00008734, state_12: 0.00025214, state_13: 0.00004734, state_14: 0.00022421, state_15: 0.00100394, state_16: 0.00003545, state_17: 0.00001025, state_18: 0.00070875, state_19: 0.03343856, state_20: 0.01877681, state_21: 0.01049887, state_22: 0.00034291, state_23: 0.00065192, state_24: 0.00214274, state_25: 0.20927776, state_26: 0.03552153, state_27: 0.14624334, state_28: 0.21795538, state_29: 0.03515490, state_30: 0.13045618, state_31: 0.33202812, state_32: 0.04144305, state_33: 0.14741168, state_34: 0.20523165, state_35: 0.03372966, state_36: 0.12593371, state_MSE: 0.04674037, q_error_norm: 0.01752328, qd_error_norm: 0.94991325} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.02799479, itemized = {state_0: 0.00000013, state_1: 0.00000034, state_2: 0.00000060, state_3: 0.00000268, state_4: 0.00000101, state_5: 0.00000043, state_6: 0.00000000, state_7: 0.00003678, state_8: 0.00003069, state_9: 0.00015954, state_10: 0.00003468, state_11: 0.00023955, state_12: 0.00002669, state_13: 0.00004416, state_14: 0.00001165, state_15: 0.00005139, state_16: 0.00003887, state_17: 0.00008308, state_18: 0.00006345, state_19: 0.03212996, state_20: 0.02214247, state_21: 0.01069343, state_22: 0.00033979, state_23: 0.00068238, state_24: 0.00224398, state_25: 0.23229618, state_26: 0.04064375, state_27: 0.12716315, state_28: 0.22692677, state_29: 0.04432623, state_30: 0.10988074, state_31: 0.23275442, state_32: 0.03764044, state_33: 0.09926188, state_34: 0.24979643, state_35: 0.03823066, state_36: 0.13282969, state_MSE: 0.04434616, q_error_norm: 0.01917699, qd_error_norm: 0.92573433} [0m
+[96m [Time Report] time(epoch): 23.837 sec, time(other): 0.261 sec, time(dataloader): 11.428 sec, time(compute_loss): 6.171 sec, time(backward): 5.106 sec, time(eval): 0.693 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.397606, device='cuda:0'), grad_norm_after_clip: tensor(0.397606, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 5 with loss 0.02799479. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.08348119, Rollout MSE Error (joint_q) = 0.00666530 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 6 [0m
+[96m [Train] loss = 0.02321975, itemized = {state_0: 0.00000014, state_1: 0.00000026, state_2: 0.00000045, state_3: 0.00000243, state_4: 0.00000078, state_5: 0.00000042, state_6: 0.00000001, state_7: 0.00003176, state_8: 0.00008619, state_9: 0.00043933, state_10: 0.00003039, state_11: 0.00010412, state_12: 0.00058828, state_13: 0.00004108, state_14: 0.00024580, state_15: 0.00072323, state_16: 0.00002976, state_17: 0.00002768, state_18: 0.00068415, state_19: 0.02823242, state_20: 0.01564143, state_21: 0.00873868, state_22: 0.00028326, state_23: 0.00054105, state_24: 0.00183388, state_25: 0.17432175, state_26: 0.02954220, state_27: 0.13304761, state_28: 0.17692827, state_29: 0.02868511, state_30: 0.10740178, state_31: 0.30456161, state_32: 0.03645349, state_33: 0.12263478, state_34: 0.17431320, state_35: 0.02814305, state_36: 0.10694357, state_MSE: 0.04003468, q_error_norm: 0.01600296, qd_error_norm: 0.87289650} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.02300821, itemized = {state_0: 0.00000013, state_1: 0.00000019, state_2: 0.00000055, state_3: 0.00000175, state_4: 0.00000074, state_5: 0.00000036, state_6: 0.00000000, state_7: 0.00002945, state_8: 0.00000652, state_9: 0.00042654, state_10: 0.00003161, state_11: 0.00062272, state_12: 0.00002390, state_13: 0.00003625, state_14: 0.00008664, state_15: 0.00003106, state_16: 0.00002470, state_17: 0.00023299, state_18: 0.00002612, state_19: 0.02922264, state_20: 0.01800452, state_21: 0.00952796, state_22: 0.00030648, state_23: 0.00058484, state_24: 0.00186785, state_25: 0.18530138, state_26: 0.02972062, state_27: 0.10595556, state_28: 0.17988367, state_29: 0.02854921, state_30: 0.09395639, state_31: 0.22083130, state_32: 0.03341494, state_33: 0.09136576, state_34: 0.19793941, state_35: 0.03099558, state_36: 0.13246594, state_MSE: 0.03760746, q_error_norm: 0.01490659, qd_error_norm: 0.82770020} [0m
+[96m [Time Report] time(epoch): 23.636 sec, time(other): 0.265 sec, time(dataloader): 11.356 sec, time(compute_loss): 6.176 sec, time(backward): 4.909 sec, time(eval): 0.748 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.363953, device='cuda:0'), grad_norm_after_clip: tensor(0.363891, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 6 with loss 0.02300821. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.03734636, Rollout MSE Error (joint_q) = 0.00631234 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 7 [0m
+[96m [Train] loss = 0.01844243, itemized = {state_0: 0.00000011, state_1: 0.00000018, state_2: 0.00000036, state_3: 0.00000190, state_4: 0.00000061, state_5: 0.00000033, state_6: 0.00000000, state_7: 0.00002487, state_8: 0.00004548, state_9: 0.00019989, state_10: 0.00002728, state_11: 0.00004565, state_12: 0.00041191, state_13: 0.00002981, state_14: 0.00024455, state_15: 0.00069772, state_16: 0.00002470, state_17: 0.00002617, state_18: 0.00052566, state_19: 0.02311195, state_20: 0.01291826, state_21: 0.00687307, state_22: 0.00023764, state_23: 0.00042898, state_24: 0.00143471, state_25: 0.13770992, state_26: 0.02315711, state_27: 0.09981805, state_28: 0.15690571, state_29: 0.02546007, state_30: 0.09726257, state_31: 0.19875372, state_32: 0.02654641, state_33: 0.09673727, state_34: 0.14625244, state_35: 0.02376245, state_36: 0.09335489, state_MSE: 0.03170358, q_error_norm: 0.01410127, qd_error_norm: 0.79681725} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.02067336, itemized = {state_0: 0.00000014, state_1: 0.00000013, state_2: 0.00000030, state_3: 0.00000158, state_4: 0.00000055, state_5: 0.00000031, state_6: 0.00000000, state_7: 0.00002219, state_8: 0.00001189, state_9: 0.00013561, state_10: 0.00002251, state_11: 0.00078918, state_12: 0.00006864, state_13: 0.00002805, state_14: 0.00001333, state_15: 0.00003090, state_16: 0.00002190, state_17: 0.00023434, state_18: 0.00002546, state_19: 0.02175605, state_20: 0.01481626, state_21: 0.00802511, state_22: 0.00025411, state_23: 0.00046905, state_24: 0.00157060, state_25: 0.16242163, state_26: 0.02562382, state_27: 0.10484138, state_28: 0.17022320, state_29: 0.02656010, state_30: 0.10497384, state_31: 0.20277706, state_32: 0.02998533, state_33: 0.07766412, state_34: 0.17887045, state_35: 0.03261332, state_36: 0.11964814, state_MSE: 0.03471623, q_error_norm: 0.01709127, qd_error_norm: 0.80445435} [0m
+[96m [Time Report] time(epoch): 24.511 sec, time(other): 0.280 sec, time(dataloader): 11.791 sec, time(compute_loss): 6.269 sec, time(backward): 5.288 sec, time(eval): 0.693 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.303723, device='cuda:0'), grad_norm_after_clip: tensor(0.303723, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 7 with loss 0.02067336. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.02006400, Rollout MSE Error (joint_q) = 0.00587575 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 8 [0m
+[96m [Train] loss = 0.01663101, itemized = {state_0: 0.00000010, state_1: 0.00000017, state_2: 0.00000031, state_3: 0.00000163, state_4: 0.00000055, state_5: 0.00000029, state_6: 0.00000000, state_7: 0.00002228, state_8: 0.00008266, state_9: 0.00039023, state_10: 0.00002423, state_11: 0.00008384, state_12: 0.00048559, state_13: 0.00002689, state_14: 0.00011281, state_15: 0.00081177, state_16: 0.00002144, state_17: 0.00002527, state_18: 0.00036877, state_19: 0.02095191, state_20: 0.01138802, state_21: 0.00631125, state_22: 0.00021466, state_23: 0.00038447, state_24: 0.00130212, state_25: 0.12774540, state_26: 0.02160465, state_27: 0.08814158, state_28: 0.14192061, state_29: 0.02301251, state_30: 0.08136594, state_31: 0.18690327, state_32: 0.02460517, state_33: 0.08926118, state_34: 0.12335701, state_35: 0.02017489, state_36: 0.08010906, state_MSE: 0.02841115, q_error_norm: 0.01336645, qd_error_norm: 0.75101395} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.02008407, itemized = {state_0: 0.00000011, state_1: 0.00000016, state_2: 0.00000037, state_3: 0.00000132, state_4: 0.00000060, state_5: 0.00000031, state_6: 0.00000000, state_7: 0.00002485, state_8: 0.00000557, state_9: 0.00064447, state_10: 0.00002082, state_11: 0.00031657, state_12: 0.00004045, state_13: 0.00002709, state_14: 0.00008337, state_15: 0.00003536, state_16: 0.00002239, state_17: 0.00008076, state_18: 0.00002511, state_19: 0.02223629, state_20: 0.01530556, state_21: 0.00807022, state_22: 0.00025475, state_23: 0.00050346, state_24: 0.00168268, state_25: 0.17995548, state_26: 0.02974067, state_27: 0.09372881, state_28: 0.17088247, state_29: 0.02726821, state_30: 0.07898367, state_31: 0.19247730, state_32: 0.02711278, state_33: 0.07879484, state_34: 0.18895023, state_35: 0.02868103, state_36: 0.09213562, state_MSE: 0.03346200, q_error_norm: 0.01426350, qd_error_norm: 0.77273705} [0m
+[96m [Time Report] time(epoch): 23.900 sec, time(other): 0.257 sec, time(dataloader): 11.678 sec, time(compute_loss): 6.175 sec, time(backward): 4.895 sec, time(eval): 0.685 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.291352, device='cuda:0'), grad_norm_after_clip: tensor(0.291352, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 8 with loss 0.02008407. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.10107553, Rollout MSE Error (joint_q) = 0.00597842 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 9 [0m
+[96m [Train] loss = 0.01518070, itemized = {state_0: 0.00000008, state_1: 0.00000016, state_2: 0.00000029, state_3: 0.00000142, state_4: 0.00000050, state_5: 0.00000026, state_6: 0.00000001, state_7: 0.00001992, state_8: 0.00002463, state_9: 0.00047970, state_10: 0.00002027, state_11: 0.00008228, state_12: 0.00036659, state_13: 0.00002699, state_14: 0.00020316, state_15: 0.00071404, state_16: 0.00001882, state_17: 0.00004334, state_18: 0.00036641, state_19: 0.01837996, state_20: 0.01018102, state_21: 0.00575338, state_22: 0.00019364, state_23: 0.00037262, state_24: 0.00115675, state_25: 0.11442827, state_26: 0.01926750, state_27: 0.07607520, state_28: 0.11407785, state_29: 0.01881297, state_30: 0.07180012, state_31: 0.20809692, state_32: 0.02427933, state_33: 0.07830480, state_34: 0.10745774, state_35: 0.01775176, state_36: 0.07303723, state_MSE: 0.02599450, q_error_norm: 0.01248315, qd_error_norm: 0.70320992} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01721207, itemized = {state_0: 0.00000007, state_1: 0.00000014, state_2: 0.00000031, state_3: 0.00000115, state_4: 0.00000044, state_5: 0.00000024, state_6: 0.00000000, state_7: 0.00002003, state_8: 0.00000467, state_9: 0.00055872, state_10: 0.00001770, state_11: 0.00038972, state_12: 0.00001546, state_13: 0.00002364, state_14: 0.00008561, state_15: 0.00002631, state_16: 0.00001923, state_17: 0.00023269, state_18: 0.00002579, state_19: 0.01856334, state_20: 0.01273677, state_21: 0.00702215, state_22: 0.00022656, state_23: 0.00043086, state_24: 0.00135817, state_25: 0.14493904, state_26: 0.02322616, state_27: 0.08527411, state_28: 0.14657543, state_29: 0.02428813, state_30: 0.07714662, state_31: 0.17698112, state_32: 0.02589703, state_33: 0.06348538, state_34: 0.15477150, state_35: 0.02441421, state_36: 0.08425494, state_MSE: 0.02900036, q_error_norm: 0.01227333, qd_error_norm: 0.68782318} [0m
+[96m [Time Report] time(epoch): 24.046 sec, time(other): 0.252 sec, time(dataloader): 11.592 sec, time(compute_loss): 6.149 sec, time(backward): 4.957 sec, time(eval): 0.890 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.284456, device='cuda:0'), grad_norm_after_clip: tensor(0.284456, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 9 with loss 0.01721207. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.25678217, Rollout MSE Error (joint_q) = 0.00652755 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 10 [0m
+[96m [Train] loss = 0.01174615, itemized = {state_0: 0.00000007, state_1: 0.00000011, state_2: 0.00000022, state_3: 0.00000115, state_4: 0.00000039, state_5: 0.00000021, state_6: 0.00000000, state_7: 0.00001671, state_8: 0.00000420, state_9: 0.00062845, state_10: 0.00001710, state_11: 0.00008132, state_12: 0.00047687, state_13: 0.00002019, state_14: 0.00025344, state_15: 0.00063075, state_16: 0.00001596, state_17: 0.00000406, state_18: 0.00043855, state_19: 0.01512978, state_20: 0.00861231, state_21: 0.00438658, state_22: 0.00015958, state_23: 0.00027386, state_24: 0.00094686, state_25: 0.09330158, state_26: 0.01569268, state_27: 0.06970534, state_28: 0.09783029, state_29: 0.01589306, state_30: 0.05779960, state_31: 0.10456250, state_32: 0.01610955, state_33: 0.06260888, state_34: 0.09315444, state_35: 0.01522701, state_36: 0.05896197, state_MSE: 0.01980935, q_error_norm: 0.01111711, qd_error_norm: 0.64765259} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01681994, itemized = {state_0: 0.00000006, state_1: 0.00000013, state_2: 0.00000022, state_3: 0.00000104, state_4: 0.00000045, state_5: 0.00000023, state_6: 0.00000000, state_7: 0.00001732, state_8: 0.00000401, state_9: 0.00064358, state_10: 0.00001713, state_11: 0.00062061, state_12: 0.00002324, state_13: 0.00002234, state_14: 0.00000563, state_15: 0.00003339, state_16: 0.00001771, state_17: 0.00007963, state_18: 0.00001643, state_19: 0.01820246, state_20: 0.01242037, state_21: 0.00699871, state_22: 0.00021207, state_23: 0.00039149, state_24: 0.00135475, state_25: 0.14242026, state_26: 0.02351667, state_27: 0.09747872, state_28: 0.13966173, state_29: 0.02245913, state_30: 0.09222948, state_31: 0.16051731, state_32: 0.02408092, state_33: 0.07963573, state_34: 0.16196846, state_35: 0.02455009, state_36: 0.07532105, state_MSE: 0.02932223, q_error_norm: 0.01240139, qd_error_norm: 0.69196030} [0m
+[96m [Time Report] time(epoch): 23.573 sec, time(other): 0.260 sec, time(dataloader): 11.305 sec, time(compute_loss): 6.190 sec, time(backward): 4.953 sec, time(eval): 0.680 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.227982, device='cuda:0'), grad_norm_after_clip: tensor(0.227982, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 10 with loss 0.01681994. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.01667917, Rollout MSE Error (joint_q) = 0.00573222 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 11 [0m
+[96m [Train] loss = 0.01290454, itemized = {state_0: 0.00000007, state_1: 0.00000015, state_2: 0.00000023, state_3: 0.00000110, state_4: 0.00000040, state_5: 0.00000025, state_6: 0.00000000, state_7: 0.00001591, state_8: 0.00002383, state_9: 0.00036215, state_10: 0.00001612, state_11: 0.00000391, state_12: 0.00030213, state_13: 0.00002620, state_14: 0.00013198, state_15: 0.00057245, state_16: 0.00001472, state_17: 0.00000387, state_18: 0.00047530, state_19: 0.01527691, state_20: 0.00807487, state_21: 0.00545371, state_22: 0.00015712, state_23: 0.00030794, state_24: 0.00098059, state_25: 0.08847696, state_26: 0.01511656, state_27: 0.06380254, state_28: 0.08955764, state_29: 0.01483695, state_30: 0.04981037, state_31: 0.22991049, state_32: 0.02335537, state_33: 0.05850635, state_34: 0.08364985, state_35: 0.01416752, state_36: 0.05203864, state_MSE: 0.02203867, q_error_norm: 0.01062071, qd_error_norm: 0.62286270} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01511368, itemized = {state_0: 0.00000005, state_1: 0.00000010, state_2: 0.00000019, state_3: 0.00000130, state_4: 0.00000036, state_5: 0.00000021, state_6: 0.00000000, state_7: 0.00001685, state_8: 0.00000387, state_9: 0.00024292, state_10: 0.00001593, state_11: 0.00000359, state_12: 0.00001202, state_13: 0.00001693, state_14: 0.00000518, state_15: 0.00001130, state_16: 0.00001660, state_17: 0.00023047, state_18: 0.00001613, state_19: 0.01617353, state_20: 0.01144952, state_21: 0.00650043, state_22: 0.00019814, state_23: 0.00037047, state_24: 0.00119810, state_25: 0.12902555, state_26: 0.02074737, state_27: 0.07053424, state_28: 0.13094141, state_29: 0.02159018, state_30: 0.06889417, state_31: 0.13608765, state_32: 0.02152455, state_33: 0.05308655, state_34: 0.14392642, state_35: 0.02181921, state_36: 0.10650990, state_MSE: 0.02597761, q_error_norm: 0.00940828, qd_error_norm: 0.62700886} [0m
+[96m [Time Report] time(epoch): 23.296 sec, time(other): 0.251 sec, time(dataloader): 11.109 sec, time(compute_loss): 6.121 sec, time(backward): 4.925 sec, time(eval): 0.694 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.233050, device='cuda:0'), grad_norm_after_clip: tensor(0.233050, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 11 with loss 0.01511368. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 1.04920709, Rollout MSE Error (joint_q) = 0.00588679 [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 12 [0m
+[96m [Train] loss = 0.00834513, itemized = {state_0: 0.00000004, state_1: 0.00000007, state_2: 0.00000015, state_3: 0.00000073, state_4: 0.00000028, state_5: 0.00000016, state_6: 0.00000000, state_7: 0.00001180, state_8: 0.00002186, state_9: 0.00022241, state_10: 0.00001182, state_11: 0.00004134, state_12: 0.00037552, state_13: 0.00001240, state_14: 0.00006120, state_15: 0.00056932, state_16: 0.00001163, state_17: 0.00002190, state_18: 0.00024104, state_19: 0.01100842, state_20: 0.00629686, state_21: 0.00307003, state_22: 0.00011983, state_23: 0.00019313, state_24: 0.00068243, state_25: 0.06588573, state_26: 0.01113772, state_27: 0.04700423, state_28: 0.06843157, state_29: 0.01144233, state_30: 0.04469367, state_31: 0.07117898, state_32: 0.01129064, state_33: 0.04349696, state_34: 0.06611320, state_35: 0.01092267, state_36: 0.04390484, state_MSE: 0.01401289, q_error_norm: 0.00894199, qd_error_norm: 0.55298161} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01422953, itemized = {state_0: 0.00000004, state_1: 0.00000008, state_2: 0.00000017, state_3: 0.00000070, state_4: 0.00000038, state_5: 0.00000019, state_6: 0.00000000, state_7: 0.00001624, state_8: 0.00000312, state_9: 0.00032321, state_10: 0.00001375, state_11: 0.00007999, state_12: 0.00001153, state_13: 0.00001857, state_14: 0.00000421, state_15: 0.00001201, state_16: 0.00001394, state_17: 0.00015455, state_18: 0.00001071, state_19: 0.01497635, state_20: 0.01073864, state_21: 0.00606557, state_22: 0.00019104, state_23: 0.00034315, state_24: 0.00114765, state_25: 0.12911517, state_26: 0.02053740, state_27: 0.06944435, state_28: 0.11897986, state_29: 0.01892202, state_30: 0.07092241, state_31: 0.15261394, state_32: 0.02177263, state_33: 0.05524480, state_34: 0.12877828, state_35: 0.01981796, state_36: 0.07088088, state_MSE: 0.02462583, q_error_norm: 0.00916655, qd_error_norm: 0.59530666} [0m
+[96m [Time Report] time(epoch): 23.848 sec, time(other): 0.259 sec, time(dataloader): 11.325 sec, time(compute_loss): 6.101 sec, time(backward): 5.008 sec, time(eval): 0.688 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.158938, device='cuda:0'), grad_norm_after_clip: tensor(0.158938, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 12 with loss 0.01422953. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.93850613, Rollout MSE Error (joint_q) = 0.00551222 [0m
+[92m Save Best Eval Model at Epoch 13 with MSE error 0.9385061264038086. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 13 [0m
+[96m [Train] loss = 0.00829572, itemized = {state_0: 0.00000004, state_1: 0.00000008, state_2: 0.00000015, state_3: 0.00000066, state_4: 0.00000026, state_5: 0.00000015, state_6: 0.00000000, state_7: 0.00001082, state_8: 0.00000264, state_9: 0.00033591, state_10: 0.00001056, state_11: 0.00005964, state_12: 0.00029766, state_13: 0.00001564, state_14: 0.00016152, state_15: 0.00045169, state_16: 0.00001012, state_17: 0.00002163, state_18: 0.00043196, state_19: 0.01072321, state_20: 0.00569522, state_21: 0.00311242, state_22: 0.00011000, state_23: 0.00019603, state_24: 0.00065609, state_25: 0.05929549, state_26: 0.01031765, state_27: 0.04215671, state_28: 0.06028929, state_29: 0.01004445, state_30: 0.03637917, state_31: 0.12743361, state_32: 0.01485858, state_33: 0.04137011, state_34: 0.05716093, state_35: 0.00974334, state_36: 0.03933303, state_MSE: 0.01434288, q_error_norm: 0.00830997, qd_error_norm: 0.51968662} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01392962, itemized = {state_0: 0.00000005, state_1: 0.00000009, state_2: 0.00000016, state_3: 0.00000077, state_4: 0.00000035, state_5: 0.00000019, state_6: 0.00000000, state_7: 0.00001315, state_8: 0.00000308, state_9: 0.00055002, state_10: 0.00001258, state_11: 0.00000292, state_12: 0.00001002, state_13: 0.00001681, state_14: 0.00008083, state_15: 0.00001052, state_16: 0.00001283, state_17: 0.00023013, state_18: 0.00001084, state_19: 0.01513587, state_20: 0.01031865, state_21: 0.00606113, state_22: 0.00017787, state_23: 0.00033614, state_24: 0.00113552, state_25: 0.13029819, state_26: 0.02106957, state_27: 0.06724499, state_28: 0.12284789, state_29: 0.01855486, state_30: 0.06511861, state_31: 0.13774498, state_32: 0.02020647, state_33: 0.04756870, state_34: 0.13681287, state_35: 0.02007520, state_36: 0.08006163, state_MSE: 0.02437093, q_error_norm: 0.00826435, qd_error_norm: 0.57306850} [0m
+[96m [Time Report] time(epoch): 24.141 sec, time(other): 0.263 sec, time(dataloader): 11.503 sec, time(compute_loss): 6.234 sec, time(backward): 5.038 sec, time(eval): 0.898 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.141465, device='cuda:0'), grad_norm_after_clip: tensor(0.141465, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 13 with loss 0.01392962. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+Evaluating
+[37m [Evaluate], Num Rollouts = 2048, Rollout Length = 10, Rollout MSE Error = 0.79528582, Rollout MSE Error (joint_q) = 0.00520001 [0m
+[92m Save Best Eval Model at Epoch 14 with MSE error 0.7952858209609985. [0m
+[96m ---------------------------------------------------------------------------------------------------- [0m
+[96m Epoch 14 [0m
+[96m [Train] loss = 0.00652255, itemized = {state_0: 0.00000003, state_1: 0.00000005, state_2: 0.00000012, state_3: 0.00000054, state_4: 0.00000022, state_5: 0.00000012, state_6: 0.00000000, state_7: 0.00000926, state_8: 0.00000210, state_9: 0.00039120, state_10: 0.00000929, state_11: 0.00002136, state_12: 0.00033473, state_13: 0.00001002, state_14: 0.00017431, state_15: 0.00046895, state_16: 0.00000908, state_17: 0.00004041, state_18: 0.00033473, state_19: 0.00869006, state_20: 0.00500859, state_21: 0.00239582, state_22: 0.00009729, state_23: 0.00014965, state_24: 0.00053683, state_25: 0.05135738, state_26: 0.00873080, state_27: 0.03642417, state_28: 0.05251357, state_29: 0.00869093, state_30: 0.03363826, state_31: 0.05670732, state_32: 0.00894648, state_33: 0.03461767, state_34: 0.05097222, state_35: 0.00844700, state_36: 0.03357664, state_MSE: 0.01090019, q_error_norm: 0.00769863, qd_error_norm: 0.49046165} [0m
+[96m [Valid] dataset [exp_trajectory]: loss = 0.01326377, itemized = {state_0: 0.00000004, state_1: 0.00000006, state_2: 0.00000014, state_3: 0.00000059, state_4: 0.00000030, state_5: 0.00000016, state_6: 0.00000000, state_7: 0.00001174, state_8: 0.00000254, state_9: 0.00047213, state_10: 0.00001119, state_11: 0.00015654, state_12: 0.00000867, state_13: 0.00001598, state_14: 0.00007985, state_15: 0.00000910, state_16: 0.00001240, state_17: 0.00038222, state_18: 0.00001115, state_19: 0.01407463, state_20: 0.00948778, state_21: 0.00576005, state_22: 0.00016795, state_23: 0.00031488, state_24: 0.00103393, state_25: 0.11542570, state_26: 0.01831380, state_27: 0.06438286, state_28: 0.12349981, state_29: 0.01788301, state_30: 0.05591055, state_31: 0.13662099, state_32: 0.01960818, state_33: 0.04611090, state_34: 0.14325518, state_35: 0.02074519, state_36: 0.09310125, state_MSE: 0.02396950, q_error_norm: 0.00779526, qd_error_norm: 0.54776978} [0m
+[96m [Time Report] time(epoch): 23.729 sec, time(other): 0.265 sec, time(dataloader): 11.488 sec, time(compute_loss): 6.126 sec, time(backward): 4.915 sec, time(eval): 0.755 sec [0m
+[96m [Grad Info] {grad_norm_before_clip: tensor(0.116270, device='cuda:0'), grad_norm_after_clip: tensor(0.116270, device='cuda:0')} [0m
+[92m Save Best Valid exp_trajectory Model at Epoch 14 with loss 0.01326377. [0m
