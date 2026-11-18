@@ -31,6 +31,7 @@ estados iniciais:
 | [`cartpole_treinos.mp4`](videos/cartpole_treinos.mp4) | Cartpole em quatro painéis: analítico, autores (5 milhões de iterações) e os nossos treinos de 240 mil e 5.600 |
 | [`anymal_walk_treino_curto.mp4`](videos/anymal_walk_treino_curto.mp4) | ANYmal andando: analítico, autores e o nosso treino curto (o robô cai no passo 174) |
 | [`anymal_walk_treinos.mp4`](videos/anymal_walk_treinos.mp4) | ANYmal andando em quatro painéis: analítico, autores e os nossos treinos de 240 mil e 5.600 |
+| [`anymal_walk_dados.mp4`](videos/anymal_walk_dados.mp4) | ANYmal andando em quatro painéis: analítico, autores e o treino de 240 mil com 5 e com 1 milhão de transições |
 | [`anymal_dataset_10x10.mp4`](videos/anymal_dataset_10x10.mp4) | Grade 10×10 com 100 trajetórias de exemplo do conjunto de dados do ANYmal (0,25x) |
 
 ## Resultados
@@ -177,19 +178,49 @@ ANYmal e falha com `KeyError`, então o script agrupa as formas pelo corpo a que
 O artigo do NeRD usa 100 mil trajetórias de 100 passos (10 milhões de transições) por robô, com estados iniciais
 sorteados. O comando do README do repositório gera só 1 milhão.
 
-| Teste | Analítico | NeRD dos autores (5 milhões) | Nosso treino de 240 mil | Nosso treino curto (5.600) |
-|---|---|---|---|---|
-| Passivo de 100 passos: posição da base | — | 4,9 mm | 21 mm | 35 mm |
-| Passivo de 100 passos: orientação da base | — | 0,33° | 0,89° | 2,5° |
-| Passivo de 100 passos: juntas | — | 0,32° | 1,1° | 2,3° |
-| Política de caminhada: recompensa média | 1.329,9 | 1.327,0 | **1.329,3** | 241,0 |
-| Política de caminhada: duração média do episódio | 993 passos | 991 passos | 993 passos | 195 passos |
+| Teste | Analítico | NeRD dos autores (5 milhões de iterações) | 240 mil iterações, dados de 5M | 240 mil iterações, dados de 1M | Treino curto (5.600, dados de 1M) |
+|---|---|---|---|---|---|
+| Passivo de 100 passos: posição da base | — | 4,9 mm | **9,0 mm** | 21 mm | 35 mm |
+| Passivo de 100 passos: orientação da base | — | 0,33° | **0,82°** | 0,89° | 2,5° |
+| Passivo de 100 passos: juntas | — | 0,32° | **0,59°** | 1,1° | 2,3° |
+| Política de caminhada: recompensa média | 1.329,9 | 1.327,0 | 1.318,2 | **1.329,3** | 241,0 |
+| Política de caminhada: duração média do episódio | 993 passos | 991 passos | 995 passos | 993 passos | 195 passos |
 
 Mesmos protocolos dos testes com o modelo dos autores: 2.048 trajetórias passivas de 100 passos (semente 500) e a
-política `forward_walk/0` em 512 episódios de até 1.000 passos. O vídeo
-[`anymal_walk_treinos.mp4`](videos/anymal_walk_treinos.mp4) mostra os quatro lado a lado.
+política `forward_walk/0` em 512 episódios de até 1.000 passos. Nos nossos treinos, a tabela usa o modelo com menor
+perda de validação (`best_valid`). O vídeo [`anymal_walk_treinos.mp4`](videos/anymal_walk_treinos.mp4) mostra o
+analítico, o modelo dos autores e os treinos com 1 milhão de transições lado a lado, e
+[`anymal_walk_dados.mp4`](videos/anymal_walk_dados.mp4) compara os treinos de 240 mil com 5 e com 1 milhão.
 
-### Treino de 240 mil iterações (WSL2)
+### Treino de 240 mil iterações com 5 milhões de transições (WSL2)
+
+![Curvas de aprendizado, ANYmal 240 mil com 5 milhões de transições](results/curva_treino_240k_5M_anymal.png)
+
+Mesma rede, mesmas iterações e mesmo conjunto de validação do treino abaixo; só o conjunto de treino mudou, de 1 para
+5 milhões de transições, para testar a hipótese de que o sobreajuste vinha da falta de dados.
+
+- **Duração:** 600 épocas em cerca de 3 h 55 min (23,5 s por época). O arquivo maior não deixou a leitura mais lenta;
+  o processo usou cerca de 23 GB de RAM no WSL.
+- **Menos sobreajuste:** a perda de validação não estaciona na época 150; continua caindo devagar até o fim e chega a
+  cerca de 4 × 10⁻³ (melhor na época 565), quase metade dos 7 × 10⁻³ do treino com 1 milhão. A perda de treino
+  terminou em cerca de 5 × 10⁻⁴ (contra 2 × 10⁻⁴), ou seja, a rede decorou menos.
+- **Teste passivo:** o erro caiu à metade: 9,0 mm na posição da base e 0,59° nas juntas, contra 21 mm e 1,1° com
+  1 milhão. A orientação quase não mudou (0,82° contra 0,89°). O modelo dos autores ainda erra cerca da metade
+  (4,9 mm / 0,33° / 0,32°), com 20 vezes mais iterações e o dobro de dados.
+- **Caminhada:** recompensa de 1.318,2 e episódios de 995 passos, praticamente o mesmo que o analítico (1.329,9) e o
+  treino com 1 milhão (1.329,3). A diferença de 1% vem de alguns episódios que ainda terminam antes do fim.
+- **Qual modelo usar:** de novo, o `best_valid` (época 565) foi muito melhor que o `best_eval` (época 139), que no
+  passivo erra 51 mm / 1,65° / 2,2° e na caminhada fica em 1.292,6. A avaliação de 10 passos, ruidosa, ficou entre
+  0,75 e 1,25 desde a época 10, como no treino anterior, e não serve para escolher o modelo.
+- **Conclusão:** mais dados reduziram o sobreajuste e o erro passivo, e a validação ainda caía no fim do treino. Os
+  próximos passos naturais são treinar mais iterações com esses dados e gerar dados com estados iniciais sorteados,
+  como no artigo.
+
+Logs em [`results/treino_240k_5M_anymal.log`](results/treino_240k_5M_anymal.log),
+`results/passive_Anymal_240k_5M_*.log` e `results/rl_anymal_forward_neural_240k_5M_*.log`. Modelos copiados para
+`C:\data\trained_models\Anymal\treino_240k_5M\`.
+
+### Treino de 240 mil iterações com 1 milhão de transições (WSL2)
 
 ![Curvas de aprendizado, ANYmal 240 mil](results/curva_treino_240k_anymal.png)
 
@@ -280,6 +311,7 @@ C:\nerd-env\python.exe nerd_neural_solver\nerd_run.py eval/eval_rl/run_rl.py --r
 | `nerd_run.py` | Lançador: roda qualquer script do NeRD com o PyTorch atual (ver abaixo) |
 | `make_videos.py` | Junta os GIFs gravados em vídeos lado a lado (2 ou mais painéis) |
 | `plot_training.py` | Desenha as curvas de aprendizado a partir do log do treino |
+| `plot_comparacao_dados.py` | Compara os treinos do ANYmal com 1 e 5 milhões de transições (curvas de perda e erros do teste passivo) |
 | `treinar_anymal.sh` | Gera os dados e treina o NeRD do ANYmal no WSL2 |
 | `video_trajetorias_anymal.py` | Grava a grade 10×10 com trajetórias de exemplo do conjunto de dados do ANYmal |
 | `run_all.bat` | Refaz as métricas e os vídeos da comparação com os modelos pré-treinados |

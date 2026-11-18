@@ -49,6 +49,11 @@ CLIPS = [
       (f"{RL}/anymal_walk_neural.gif", ("NeRD: 5 milhões", NERD[1])),
       (f"{RL}/anymal_walk_treino_240k.gif", ("NeRD: 240 mil", (150, 230, 130))),
       (f"{RL}/anymal_walk_treino_curto.gif", ("NeRD: 5.600", (255, 120, 120)))], False),
+    ("anymal_walk_dados", "ANYmal: política de caminhada e quantidade de dados do NeRD",
+     [(f"{RL}/anymal_walk_ground-truth.gif", ("Analítico", ANALYTICAL[1])),
+      (f"{RL}/anymal_walk_neural.gif", ("Autores", NERD[1])),
+      (f"{RL}/anymal_walk_treino_240k_5M.gif", ("240 mil, dados 5M", (190, 150, 255))),
+      (f"{RL}/anymal_walk_treino_240k.gif", ("240 mil, dados 1M", (150, 230, 130)))], False),
 ]
 VIDEO_W = 1600  # largura total; cada painel tem largura VIDEO_W / número de painéis, em 4:3
 BANNER_H = 90
